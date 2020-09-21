@@ -9,8 +9,9 @@ from .models import Functional, Nutrient, Supplement
 
 
 @api_view(['GET'])
-def getSupplementsList(request):
-    supplements = Supplement.objects.all()[:10]
+def getSupplementsList(request, page):
+    start, end = (page-1)*10, page*10
+    supplements = Supplement.objects.all()[start:end]
     serializers = SupplementListSerializer(supplements, many=True)
     return Response(serializers.data)
 
