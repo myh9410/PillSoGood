@@ -1,0 +1,91 @@
+@charset "utf-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import './common';
+@import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
+
+.input-wrap p {
+    // margin-bottom: 1em;
+}
+
+@mixin wrap {
+    width : 100%;
+    float: left;
+}
+
+.form-wrap{
+    .input-label{
+        width:100%;
+    }
+}
+
+.error-text {
+    color: $red;
+}
+
+.input-wrap {
+    @include wrap;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    input[type="text"],
+    input[type="password"] { 
+      @include wrap;
+      // input-label박스 사이즈
+      height: 45px;
+      line-height: 1;
+      padding: 2px 60px 0 105px;
+      box-sizing: border-box;
+      // 평상시 박스 border
+      border: 1px solid rgb(150, 150, 150);
+      border-radius: 3px;
+      &.error {
+        border-radius: 3;
+        border: 1px solid $red;
+      }
+      &.complete {
+        border-radius: 3;
+        border: 1px solid $myColor;
+      }
+      &.disabled {
+        background: #eee;
+        color:#333;
+        &:hover, &:focus {
+          border:1px solid #000;
+        }
+      }
+    }
+    label {
+      position: absolute;
+      left: 15px;
+      top : 16px;
+      color: #000;
+      font-size: 15px;
+      &.right {
+        // margin-left: 84%;
+        border: none;
+        font-size: 15px;
+        font-weight: 400;
+        background-color: transparent;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+    .error-text {
+      @include wrap;
+      color: $red;
+      margin-top: 3px;
+      margin-left: 9px;
+    }
+}
+
+.input-wrap email-wrap {
+    width:100%;
+}
+
+#email {
+    width: 40%;
+}
+
+#password {
+    width: 40%;
+}

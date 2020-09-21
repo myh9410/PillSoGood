@@ -1,0 +1,10 @@
+$myColor: #17a2b8;
+$red : #EE4B55;
+$black : #707070;
+$grey: #CCCCCC;
+$disabledMyColor: #1b636e;
+
+@mixin wrap {
+    width : 100%;
+    float:left;
+}
