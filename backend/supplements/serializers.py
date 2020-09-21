@@ -16,6 +16,20 @@ class NutrientSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class NutrientSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Nutrient
+        fields = ['id', 'name']
+
+
+class SupplementListSerializer(serializers.ModelSerializer):
+    nutrients = NutrientSimpleSerializer(many=True)
+
+    class Meta:
+        model = Supplement
+        fields = ['id', 'name', 'nutrients']
+
+
 class SupplementSerializer(serializers.ModelSerializer):
     nutrients = NutrientSerializer(many=True)
 
