@@ -7,4 +7,6 @@ urlpatterns = [
     path('users/', include('rest_auth.urls')),
     path('users/signup/', include('rest_auth.registration.urls')),
     path('accounts/', include('allauth.urls')),
+
+    path('supplements/', include('supplements.urls'))
 ]
