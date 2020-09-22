@@ -10,4 +10,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     url(r'accounts/confirmemail/(?P<key>[-:\w]+)/$',allauthemailconfirmation,
        name='account_confirm_email'),
+    path('supplements/', include('supplements.urls'))
 ]
