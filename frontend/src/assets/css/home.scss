@@ -1,3 +1,28 @@
+//Vueper Slide
+.vueperslide {
+    &__title {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        z-index: 10;
+        font-size: 20px;
+        opacity: 0.6;
+    }
+  }
+  
+.vueperslides__progress {
+    // background: rgba(0,0,0,0.25);
+    color: #ff5252;
+}
+
+.vueperslides__arrow {
+    color: black;
+}
+
+.vueperslides__arrow svg{
+    stroke-width: 2;
+}
+
 .explanation {
     // border: 1px solid black;
     width: 80%;
@@ -11,14 +36,14 @@
 
 .explanation img {
     float: right;
+    opacity: 0.7;
 }
 
 .products {
-    border: 1px solid black;
-    width: 50%;
-    height : 5em;
+    width: 80%;
     margin:auto;
     margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .buttons {
@@ -40,21 +65,20 @@
     margin-bottom: 10px;
 }
 
-div.description1 {
+.description1 {
     margin: 30px;
     margin-top:5%;
     height: 30%;
     // background-color: #ffffff;
     // opacity: 0.6;
   }
-div.description1 p {
+.description1 p {
     padding-top: 20px;
     font-weight: bold;
     font-size: 48px;
     // color: #FF9900;
 }
-
-div.description2 {
+.description2 p{
     margin: 5%;
     padding-top: 10px;
     // font-weight: bold;
@@ -65,4 +89,5 @@ div.description2 {
 .logo {
     width: 15%;
     vertical-align: bottom;
+    cursor: pointer;
 }
