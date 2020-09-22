@@ -152,8 +152,6 @@ USE_TZ = True
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
@@ -172,29 +170,28 @@ REST_AUTH_SERIALIZERS = {
 
 ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
 
-# # 이메일 인증
-# EMAIL_HOST = 'smtp.gmail.com'
-# # 메일을 호스트하는 서버
-# EMAIL_PORT = '587'
-# # gmail과의 통신하는 포트
-# EMAIL_HOST_USER = 'akswo1220@gmail.com'
-# # 발신할 이메일
-# EMAIL_HOST_PASSWORD = 'zxasqw9562!'
-# # 발신할 메일의 비밀번호
-# EMAIL_USE_TLS = True
-# # TLS 보안 방법
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-# # 사이트와 관련한 자동응답을 받을 이메일 주소,'webmaster@localhost'
-
 # This is required otherwise it asks for email server
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# ACCOUNT_EMAIL_REQUIRED = True
-# AUTHENTICATION_METHOD = 'EMAIL'
-# ACCOUNT_EMAIL_VERIFICATION = 'optional'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
+
+# 이메일 인증
+EMAIL_HOST = 'smtp.gmail.com'
+# 메일을 호스트하는 서버
+EMAIL_PORT = '587'
+# gmail과의 통신하는 포트
+EMAIL_HOST_USER = 'akswo1220@gmail.com'
+# 발신할 이메일
+EMAIL_HOST_PASSWORD = 'zxasqw9562!'
+# 발신할 메일의 비밀번호
+EMAIL_USE_TLS = True
+# TLS 보안 방법
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# 사이트와 관련한 자동응답을 받을 이메일 주소,'webmaster@localhost'
+
 
 # Following is added to enable registration with email instead of username
 AUTHENTICATION_BACKENDS = (
