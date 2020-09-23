@@ -10,7 +10,7 @@
       <v-btn to="/list">
         영양제
       </v-btn>
-      <v-btn text>
+      <v-btn to="/recommend">
         추천
       </v-btn>
       <div v-if="!this.$store.state.isLogged">

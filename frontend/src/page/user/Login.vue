@@ -63,8 +63,8 @@
 import '../../assets/css/login.scss'
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
-import http from  "@/util/http-common"
-import store from "@/store.js"
+import http from  "@/util/http-common";
+import store from "@/store.js";
 const config = require(`../../util/config.json`);
 
 export default {
