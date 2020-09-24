@@ -10,7 +10,7 @@
       <v-btn to="/list">
         영양제
       </v-btn>
-      <v-btn text>
+      <v-btn to="/recommend">
         추천
       </v-btn>
       <div v-if="!this.$store.state.isLogged">
@@ -37,6 +37,7 @@
 // import constants from "./lib/constants";
 import '../src/assets/css/home.scss';
 import store from '@/store.js'
+// import http from '@/util/http-common'
 
 export default {
   name: 'app',
@@ -58,6 +59,7 @@ export default {
       this.$router.push('/');
     },
     onLogout(){
+      // http.post('users/logout/');
       store.dispatch('logout');
       if (window.location.pathname == '/') this.$router.go(0);
       else this.$router.push({ name: 'Home'});
