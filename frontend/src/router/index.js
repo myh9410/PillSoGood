@@ -45,7 +45,7 @@ export default new Router({
       component: List
     },
     {
-      path: `/list/:sampletonic_pk`,
+      path: `/list/:tonic_pk`,
       name: 'TonicDetail',
       component: TonicDetail
     },

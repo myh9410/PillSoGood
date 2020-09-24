@@ -1,33 +1,32 @@
 <template>
-  <div class="user" id="join" data-app>
-    <div style="width: 300px; margin: 0 auto;">
+  <div data-app>
+    <div style="width: 300px; margin:0 auto;">
       <div style="width:90%; padding-top:20px; margin:auto">
-        <div class="input-wrap">
-          <p style="text-align: left; margin-bottom:4px">이메일</p>
+        <div class="for-input">
+          <p style="text-align:left; margin-bottom:4px">이메일</p>
           <input
             v-model="email"
-            id="email"
             placeholder="이메일을 입력해주세요"
-            style="border:solid 1px #dadada;height:50px; background-color:white;"
+            style="border:solid 1px #dadada;height:50px; width:279px;  background-color:white;"
             type="text"
+            @change="emailCheck"
           />
         </div>
-
-        <div class="input-wrap">
+<br/>
+        <div class>
           <p style="text-align: left; margin-bottom:4px">이름</p>
           <input
             v-model="username"
             id="username"
-            style=" border:solid 1px #dadada;height:50px; background-color:white;"
+            style=" border:solid 1px #dadada;height:50px;width:279px;  background-color:white;"
             placeholder="이름을 입력해주세요"
             type="text"
           />
         </div>
-
+<br/>
         <div>
           <p style="text-align: left; margin-bottom:4px">성별</p>
-
-          <v-container fluid>
+          <v-container fluid style="padding:0">
             <v-radio-group class="d-flex" v-model="gender" :mandatory="false">
               <v-radio style="width:30%" label="남성" value="true"></v-radio>
               <v-radio style="width:30%" label="여성" value="false"></v-radio>
@@ -35,18 +34,11 @@
           </v-container>
         </div>
 
-        <!-- <div class="input-wrap">
-        <p style="text-align: left; margin-bottom:4px">생년월일</p>
-        <input
-          placeholder="ex) 950110"
-          style="border:solid 1px #dadada;height:50px; background-color:white;"
-          type="text"
-        />
-        </div>-->
+
 
         <div style="color:rgb(0,0,0);">
           <p style="text-align: left; margin-bottom:4px">생년월일</p>
-          <v-row justify="center">
+          <v-row justify="center" style="margin-left:3px">
             <v-menu
               ref="menu"
               v-model="menu"
@@ -69,61 +61,61 @@
           </v-row>
         </div>
 
-        <div class="input-wrap password-wrap">
+        <div class="password-wrap">
           <p style="text-align: left; margin-bottom:4px">비밀번호</p>
           <input
             v-model="password1"
             id="password1"
             :type="password1Type"
             placeholder="최소 8자 이상으로 입력해주세요"
-            style="border:solid 1px #dadada;height:50px; background-color:white;"
+            style="border:solid 1px #dadada;height:50px; width:279px;  background-color:white;"
           />
           <span>
             <i class="fas fa-eye"></i>
           </span>
         </div>
-
-        <div class="input-wrap password-wrap">
+<br/>
+        <div class="password-wrap">
           <p style="text-align: left; margin-bottom:4px">비밀번호 확인</p>
           <input
             v-model="password2"
             id="password2"
-            style="border:solid 1px #dadada;height:50px; background-color:white;"
+            style="border:solid 1px #dadada;height:50px; width:279px; background-color:white;"
             :type="password2Type"
             placeholder="비밀번호를 다시 한 번 입력해주세요"
           />
         </div>
-        <div>
-          <div class="d-flex flex-row mb-6" style="height:30px; width:100% margin:auto">
-            <v-dialog width="600px" style="text-align:center">
-              <template v-slot:activator="{ on, attrs }" style="text-align:center">
-                <div style="width:300px; margin:0px">
-                  <p
-                    class="pa-2"
-                    v-bind="attrs"
-                    style="text-decoration:underline; width: 130px"
-                    v-on="on"
-                  >개인정보처리방침</p>
-                  <p class="d-flex pa-2" style="margin:0; width:60px">에 동의</p>
-                  <v-checkbox class="pa-2" style="margin:0px" v-model="isTerm" />
-                </div>
-              </template>
-              <v-card>
-                <v-card-title>
-                  <span class="headline">개인정보처리방침</span>
-                </v-card-title>
-                <v-card-text>
-                  '(주)필소굿'은 (이하 '회사'는) 고객님의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다. 회사는 개인정보취급방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
-                  <br />
-                  <br />■ 수집하는 개인정보 항목
-                  <br />수집항목 : 이름, 생년월일, 성별, 비밀번호, 이메일, 서비스 이용기록, 접속 로그, 접속 IP 정보
-                </v-card-text>
-              </v-card>
-            </v-dialog>
-          </div>
+<br/>
+        <div class="mb-6" style="height:30px; width:279px; margin:auto">
+          <v-dialog width="600px" style="text-align:center">
+            <template v-slot:activator="{ on, attrs }" style="text-align:center">
+              <div class="row justify-content-between flex" style="width:300px; margin:0px">
+                <v-checkbox style="margin:0px; float:left" v-model="isTerm" />
+                <p
+                
+                  v-bind="attrs"
+                  style="text-decoration:underline;"
+                  v-on="on"
+                >개인정보처리방침</p>
+                <div style="margin-right:5px">에 동의</div>
+              </div>
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="headline">개인정보처리방침</span>
+              </v-card-title>
+              <v-card-text>
+                '(주)필소굿'은 (이하 '회사'는) 고객님의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다. 회사는 개인정보취급방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
+                <br />
+                <br />■ 수집하는 개인정보 항목
+                <br />수집항목 : 이름, 생년월일, 성별, 비밀번호, 이메일, 서비스 이용기록, 접속 로그, 접속 IP 정보
+              </v-card-text>
+            </v-card>
+          </v-dialog>
         </div>
+
         <button
-          style="margin-top:80px; background-color:rgb(128,128,128); width:100px; border:solid 0px;"
+          style="margin-top:20px; background-color:rgb(128,128,128); width:100%; height:50px; border:solid 0px;"
           @click="Signup"
           class="btn"
         >
@@ -217,6 +209,13 @@ export default {
         alert("회원가입이 완료되었습니다.");
       }
     },
+    emailCheck() {
+      var exptext = /^[A-Za-z0-9_,-]+@[A-Za-z0-9,-]+\.[A-Za-z0-9,-]+/;
+      if (this.email.length >= 0 && !exptext.test(this.email))
+      this.error.email = "이메일 형식이 아닙니다.";
+      else this.error.email = false;
+    },
+
 
     //     const API_SIGNUP_URL = API_BASE_URL + '/rest-auth/registration/'
     // },
@@ -226,7 +225,10 @@ export default {
 };
 </script>
 <style scoped>
-.user .input-wrap {
+.for-input {
+  width: 300px;
+}
+/* .user .input-wrap {
   width: 100%;
   float: left;
   margin-bottom: 10px;
@@ -240,5 +242,5 @@ export default {
 .user .wrap {
   float: left;
   margin: 0 auto;
-}
+} */
 </style>
