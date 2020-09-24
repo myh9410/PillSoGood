@@ -65,7 +65,7 @@ import PV from "password-validator";
 import * as EmailValidator from "email-validator";
 import http from  "@/util/http-common";
 import store from "@/store.js";
-const config = require(`../../util/config.json`);
+// const config = require(`../../util/config.json`);
 
 export default {
   name: "join",
@@ -158,8 +158,8 @@ export default {
     },
     onGoogle() {
       alert("구글");
-      console.log(config.googleAccessToken.access_token);
-      console.log(config.googleAccessToken.id_token);
+      // console.log(config.googleAccessToken.access_token);
+      // console.log(config.googleAccessToken.id_token);
       // http.post('users/google',{
       //   access_token : "fwhdsofnwsbfwejfoiasdjfoidsjafjsdioajfasdiofjiosajfds",
       //   id_token : "fdhsafhwovhdkaslvhnakbvnjka"
