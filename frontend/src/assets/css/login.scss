@@ -4,14 +4,7 @@
 @import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
 
 @mixin wrap {
-    width : 100%;
-    float: left;
-}
-
-.form-wrap{
-    .input-label{
-        width:100%;
-    }
+    width : 50%;
 }
 
 .error-text {
@@ -25,7 +18,6 @@
     margin-bottom: 10px;
     input[type="text"],
     input[type="password"] { 
-      @include wrap;
       // input-label박스 사이즈
       padding: 2px 60px 0 105px;
       box-sizing: border-box;
@@ -51,7 +43,7 @@
     label {
       position: absolute;
       left: 15px;
-      top : 16px;
+      top : 20px;
       color: #000;
       font-size: 15px;
       &.right {
@@ -80,7 +72,7 @@
 .snsLogin {
   position: relative;
   border-radius: 5px;
-  background-color: #f2f2f2;
+  // background-color: #f2f2f2;
   padding: 20px 0 30px 0;
   text-align: center;
 } 
@@ -100,73 +92,45 @@ input,
   text-decoration: none; /* remove underline from anchors */
 }
 
-.snsLogin input:hover,
-.btn:hover {
+.snsLogin img {
+  opacity: 0.7;
+  width: 60px;
+  height: 60px;
+  margin:auto;
+  margin-right: 20px;
+}
+
+.snsLogin img:hover {
   opacity: 1;
 }
 
-/* add appropriate colors to google, kakao buttons */
-
-.google {
-  background-color: #dd4b39;
-  color: white;
-  width: 80%;
-  text-align: center;
+.input-wrap {
+  margin: auto;
+  margin-top: 15px;
 }
 
-.kakao {
-  background-color: #ffe812;
-  color: black;
-  width: 80%;
-  text-align: center;
-}
-
-.naver {
-  background-color: #2DB400;
-  color:white;
-  width: 80%;
-  text-align: center;
-}
-
-/* Two-column layout */
-.col {
-  float: left;
+/*로그인 버튼*/
+.submit {
   width: 50%;
   margin: auto;
-  padding: 0 50px;
+  margin-top: 20px;
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+.container {
+  height: 100%;
 }
 
-/* vertical line */
-.vl {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
-  border: 2px solid #ddd;
-  height: 15em;
+#logo {
+  width: 15%;
+  height: 15%;
+  display: block;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* text inside the vertical line */
-.vl-innertext {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  padding: 8px 10px;
-}
-
-#email {
-  width: 80%;
-}
-
-#password {
-  width: 80%;
+.user p {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
 }
