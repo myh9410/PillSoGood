@@ -161,4 +161,6 @@ dmypy.json
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,django
 
 frontend/package-lock.json
-frontend/src/util/config.json
+imageUpload/img/
+imageUpload/img (2).zip
+imageUpload/img (2).z01
