@@ -41,11 +41,14 @@
         </div>
         <div class="col">
           <div class="snsLogin">
-            <a href="#" class="google btn">
+            <a @click="onGoogle" class="google btn">
               Login with Google+
             </a>
             <a href="#" class="kakao btn">
               Login with Kakao
+            </a>
+            <a href="#" class="naver btn">
+              Login with Naver
             </a>
           </div>
         </div>
@@ -60,8 +63,9 @@
 import '../../assets/css/login.scss'
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
-import http from  "@/util/http-common"
-import store from "@/store.js"
+import http from  "@/util/http-common";
+import store from "@/store.js";
+// const config = require(`../../util/config.json`);
 
 export default {
   name: "join",
@@ -151,6 +155,17 @@ export default {
         this.$router.push("/user/login");
         console.log(err);
       })
+    },
+    onGoogle() {
+      alert("구글");
+      // console.log(config.googleAccessToken.access_token);
+      // console.log(config.googleAccessToken.id_token);
+      // http.post('users/google',{
+      //   access_token : "fwhdsofnwsbfwejfoiasdjfoidsjafjsdioajfasdiofjiosajfds",
+      //   id_token : "fdhsafhwovhdkaslvhnakbvnjka"
+      // }).then( res => {
+      //   console.log(res.data);
+      // })
     }
   },
 

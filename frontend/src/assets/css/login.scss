@@ -107,6 +107,13 @@ input,
 
 /* add appropriate colors to google, kakao buttons */
 
+.google {
+  background-color: #dd4b39;
+  color: white;
+  width: 80%;
+  text-align: center;
+}
+
 .kakao {
   background-color: #ffe812;
   color: black;
@@ -114,9 +121,9 @@ input,
   text-align: center;
 }
 
-.google {
-  background-color: #dd4b39;
-  color: white;
+.naver {
+  background-color: #2DB400;
+  color:white;
   width: 80%;
   text-align: center;
 }

@@ -8,7 +8,7 @@ import Login from '../page/user/Login.vue'
 import JoinComplete from '../page/user/JoinComplete.vue'
 import Home from '../page/Home.vue'
 
-
+import Recommend from '../page/post/Recommend.vue'
 import List from '../page/post/List.vue'
 import TonicDetail from '../page/post/TonicDetail.vue'
 
@@ -45,9 +45,14 @@ export default new Router({
       component: List
     },
     {
-      path: `/list/:sampletonic_pk`,
+      path: `/list/:tonic_pk`,
       name: 'TonicDetail',
       component: TonicDetail
+    },
+    {
+      path: '/recommend',
+      name: 'Recommend',
+      component: Recommend
     },
   ]
 })
