@@ -5,28 +5,39 @@
             <p>체크박스</p>
             <v-row justify="space-around" class="checkList">
                 <v-col>
-                    <v-checkbox v-model="checkList" value="활력" label="활력"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="체지방/혈당" label="체지방/혈당"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="여성" label="여성"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="남성" label="남성"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="어린이" label="어린이"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="노인" label="노인"></v-checkbox>
                 </v-col>
                 <v-col>
-                    <v-checkbox v-model="checkList" value="스트레스/수면" label="스트레스/수면"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="소화기" label="소화기"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="혈관" label="혈관"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="혈당" label="혈당"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="면역" label="면역"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="피로감" label="피로감"></v-checkbox>
+                </v-col>
+                <v-col>
+                    <v-checkbox v-model="checkList" value="기억력" label="기억력"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="운동" label="운동"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="피부" label="피부"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="수면" label="수면"></v-checkbox>
                 </v-col>
                 <v-col>
                     <v-checkbox v-model="checkList" value="간" label="간"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="치아/잇몸" label="치아/잇몸"></v-checkbox>
-                </v-col>
-                <v-col>
-                    <v-checkbox v-model="checkList" value="면역력" label="면역력"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="뼈/관절" label="뼈/관절"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="위" label="위"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="장" label="장"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="신장" label="신장"></v-checkbox>
                 </v-col>
                 <v-col>
                     <v-checkbox v-model="checkList" value="눈" label="눈"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="두뇌/운동" label="두뇌/운동"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="코" label="코"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="치아" label="치아"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="뼈" label="뼈"></v-checkbox>
                 </v-col>
                 <v-col>
-                    <v-checkbox v-model="checkList" value="심장/혈관" label="심장/혈관"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="피부" label="피부"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="체지방" label="체지방"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="신진대사" label="신진대사"></v-checkbox>
+                    <v-checkbox v-model="checkList" value="갑상선" label="갑상선"></v-checkbox>
                 </v-col>
             </v-row>
         </div>

@@ -43,7 +43,7 @@
     label {
       position: absolute;
       left: 15px;
-      top : 16px;
+      top : 20px;
       color: #000;
       font-size: 15px;
       &.right {
@@ -93,16 +93,11 @@ input,
 }
 
 .snsLogin img {
-  width: 100px;
-  height: 100px;
-  margin:auto;
-  margin-right: 20px;
-}
-
-.snsLogin img {
   opacity: 0.7;
   width: 60px;
   height: 60px;
+  margin:auto;
+  margin-right: 20px;
 }
 
 .snsLogin img:hover {
