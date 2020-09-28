@@ -3,7 +3,7 @@ import json
 from collections import OrderedDict
 
 csvfile = open('영양소정보.csv', 'r')
-funcfile = open('효능 카테고리화.csv', 'r')
+funcfile = open('효능.csv', 'r')
 jsonfile = open('../nutrients.json', 'w', encoding='UTF-8')
 
 field_names = (
