@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <v-app-bar
-      color="deep-purple accent-4"
+      color="#eebb4d"
       dense
       dark
     >
-      <v-toolbar-title><img class="logo" src="../src/assets/images/logo.png" @click="toHome"></v-toolbar-title>
+      <v-toolbar-title><img class="logo" src="../src/assets/images/logo-black.png" @click="toHome"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn to="/list">
         영양제
