@@ -1,44 +1,100 @@
 <template>
   <div data-app>
-    <div style="width: 300px; margin:0 auto;">
-      <div style="width:90%; padding-top:20px; margin:auto">
-        <div class="for-input">
-          <p style="text-align:left; margin-bottom:4px">이메일</p>
+    <div style="width: 700px; margin: 0 auto">
+      <div style="width: 100%; padding-top: 20px; margin: auto">
+        <div class="">
+          <p style="text-align: left; margin-bottom: 4px">이메일</p>
           <input
             v-model="email"
+            v-bind:class="{
+              error: error.email,
+              complete: !error.email && email.length != 0,
+            }"
             placeholder="이메일을 입력해주세요"
-            style="border:solid 1px #dadada;height:50px; width:279px;  background-color:white;"
+            id="email"
+            style="
+              border: solid 1px #dadada;
+              height: 50px;
+              width: 100%;
+              background-color: white;
+            "
             type="text"
-            @change="emailCheck"
           />
         </div>
-<br/>
+        <br />
         <div class>
-          <p style="text-align: left; margin-bottom:4px">이름</p>
+          <p style="text-align: left; margin-bottom: 4px">이름</p>
           <input
             v-model="username"
             id="username"
-            style=" border:solid 1px #dadada;height:50px;width:279px;  background-color:white;"
+            style="
+              border: solid 1px #dadada;
+              height: 50px;
+              width: 100%;
+              background-color: white;
+            "
             placeholder="이름을 입력해주세요"
             type="text"
           />
         </div>
-<br/>
-        <div>
-          <p style="text-align: left; margin-bottom:4px">성별</p>
-          <v-container fluid style="padding:0">
-            <v-radio-group class="d-flex" v-model="gender" :mandatory="false">
-              <v-radio style="width:30%" label="남성" value="true"></v-radio>
-              <v-radio style="width:30%" label="여성" value="false"></v-radio>
+        <br />
+
+
+        <div class="password-wrap">
+          <p style="text-align: left; margin-bottom: 4px">비밀번호</p>
+          <input
+            v-model="password1"
+            id="password1"
+            :type="password1Type"
+            placeholder="최소 8자 이상으로 입력해주세요"
+            style="
+              border: solid 1px #dadada;
+              height: 50px;
+              width: 100%;
+              background-color: white;
+            "
+          />
+          <span>
+            <i class="fas fa-eye"></i>
+          </span>
+        </div>
+        <br />
+        <div class="password-wrap">
+          <p style="text-align: left; margin-bottom: 4px">비밀번호 확인</p>
+          <input
+            v-model="password2"
+            id="password2"
+            style="
+              border: solid 1px #dadada;
+              height: 50px;
+              width: 100%;
+              background-color: white;
+            "
+            :type="password2Type"
+            placeholder="비밀번호를 다시 한 번 입력해주세요"
+          />
+        </div>
+                <div style="flex-direction: row;">
+          <p style="text-align: left; margin-bottom: 4px">성별</p>
+          <v-container style="padding: 0;">
+            <v-radio-group v-model="gender">
+              <v-row style="margin-left:0px">
+              <v-radio style="width: 20%; float:right" label="남성" value="true"></v-radio>
+              <v-radio style="width: 20%; flex-direction: row;" label="여성" value="false"></v-radio>
+            </v-row>
             </v-radio-group>
           </v-container>
         </div>
 
-
-
-        <div style="color:rgb(0,0,0);">
-          <p style="text-align: left; margin-bottom:4px">생년월일</p>
-          <v-row justify="center" style="margin-left:3px">
+        <div style="color: rgb(0, 0, 0)">
+          <p style="text-align: left; margin-bottom: 4px">생년월일</p>
+          <input type="date" style="
+              border: solid 1px #dadada;
+              height: 50px;
+              width: 100%;
+              background-color: white;
+            " v-model="date"/>
+          <!-- <v-row justify="center" style="margin-left: 3px">
             <v-menu
               ref="menu"
               v-model="menu"
@@ -48,7 +104,12 @@
               min-width="290px"
             >
               <template v-slot:activator="{ on, attrs }">
-                <v-text-field v-model="date" readonly v-bind="attrs" v-on="on"></v-text-field>
+                <v-text-field
+                  v-model="date"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
               </template>
               <v-date-picker
                 ref="picker"
@@ -58,46 +119,25 @@
                 @change="save"
               ></v-date-picker>
             </v-menu>
-          </v-row>
+          </v-row> -->
         </div>
-
-        <div class="password-wrap">
-          <p style="text-align: left; margin-bottom:4px">비밀번호</p>
-          <input
-            v-model="password1"
-            id="password1"
-            :type="password1Type"
-            placeholder="최소 8자 이상으로 입력해주세요"
-            style="border:solid 1px #dadada;height:50px; width:279px;  background-color:white;"
-          />
-          <span>
-            <i class="fas fa-eye"></i>
-          </span>
-        </div>
-<br/>
-        <div class="password-wrap">
-          <p style="text-align: left; margin-bottom:4px">비밀번호 확인</p>
-          <input
-            v-model="password2"
-            id="password2"
-            style="border:solid 1px #dadada;height:50px; width:279px; background-color:white;"
-            :type="password2Type"
-            placeholder="비밀번호를 다시 한 번 입력해주세요"
-          />
-        </div>
-<br/>
-        <div class="mb-6" style="height:30px; width:279px; margin:auto">
-          <v-dialog width="600px" style="text-align:center">
-            <template v-slot:activator="{ on, attrs }" style="text-align:center">
-              <div class="row justify-content-between flex" style="width:300px; margin:0px">
-                <v-checkbox style="margin:0px; float:left" v-model="isTerm" />
-                <p
-                
-                  v-bind="attrs"
-                  style="text-decoration:underline;"
-                  v-on="on"
-                >개인정보처리방침</p>
-                <div style="margin-right:5px">에 동의</div>
+        <br/>
+        <br />
+        <div class="mb-6" style="height: 30px; width: 100%; margin: auto">
+          <v-dialog width="600px" style="text-align: center">
+            <template
+              v-slot:activator="{ on, attrs }"
+              style="text-align: center"
+            >
+              <div
+                class="row justify-content-between flex"
+                style="width: 300px; margin: 0px"
+              >
+                <v-checkbox style="margin: 0px; float: left" v-model="isTerm" />
+                <p v-bind="attrs" style="text-decoration: underline" v-on="on">
+                  개인정보처리방침
+                </p>
+                <div style="margin-right: 5px">에 동의</div>
               </div>
             </template>
             <v-card>
@@ -105,17 +145,27 @@
                 <span class="headline">개인정보처리방침</span>
               </v-card-title>
               <v-card-text>
-                '(주)필소굿'은 (이하 '회사'는) 고객님의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다. 회사는 개인정보취급방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
+                '(주)필소굿'은 (이하 '회사'는) 고객님의 개인정보를 중요시하며,
+                "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고
+                있습니다. 회사는 개인정보취급방침을 통하여 고객님께서 제공하시는
+                개인정보가 어떠한 용도와 방식으로 이용되고 있으며,
+                개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
                 <br />
-                <br />■ 수집하는 개인정보 항목
-                <br />수집항목 : 이름, 생년월일, 성별, 비밀번호, 이메일, 서비스 이용기록, 접속 로그, 접속 IP 정보
+                <br />■ 수집하는 개인정보 항목 <br />수집항목 : 이름, 생년월일,
+                성별, 비밀번호, 이메일, 서비스 이용기록, 접속 로그, 접속 IP 정보
               </v-card-text>
             </v-card>
           </v-dialog>
         </div>
 
         <button
-          style="margin-top:20px; background-color:rgb(128,128,128); width:100%; height:50px; border:solid 0px;"
+          style="
+            margin-top: 20px;
+            background-color: #96bb7c;
+            width: 100%;
+            height: 50px;
+            border: solid 0px;
+          "
           @click="Signup"
           class="btn"
         >
@@ -129,7 +179,7 @@
 <script>
 import axios from "axios";
 const API_BASE_URL = "http://localhost:8000";
-
+import * as EmailValidator from "email-validator";
 export default {
   data: () => {
     return {
@@ -139,6 +189,10 @@ export default {
       gender: true,
       birthday: "",
       email: "",
+      error: {
+        email: false,
+        password: false,
+      },
       password1Type: "password",
       password2Type: "password",
       isTerm: false,
@@ -151,6 +205,9 @@ export default {
   watch: {
     menu(val) {
       val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
+    },
+    email: function () {
+      this.emailCheckForm();
     },
   },
 
@@ -209,13 +266,11 @@ export default {
         alert("회원가입이 완료되었습니다.");
       }
     },
-    emailCheck() {
-      var exptext = /^[A-Za-z0-9_,-]+@[A-Za-z0-9,-]+\.[A-Za-z0-9,-]+/;
-      if (this.email.length >= 0 && !exptext.test(this.email))
-      this.error.email = "이메일 형식이 아닙니다.";
+    emailCheckForm() {
+      if (this.email.length >= 0 && !EmailValidator.validate(this.email))
+        this.error.email = "이메일 형식이 아닙니다.";
       else this.error.email = false;
     },
-
 
     //     const API_SIGNUP_URL = API_BASE_URL + '/rest-auth/registration/'
     // },
@@ -224,9 +279,18 @@ export default {
   // },
 };
 </script>
-<style scoped>
+<style>
 .for-input {
   width: 300px;
+}
+.v-input--radio-group--column {
+    flex-direction: row;
+}
+ .v-input--radio-group__input{
+    flex-direction: row;
+}
+.v-input--radio-group--column .v-input--radio-group__input {
+    flex-direction: row;
 }
 /* .user .input-wrap {
   width: 100%;
