@@ -56,15 +56,17 @@
         <div style="margin: auto; width: 80%">
           <h2>포함된 영양소</h2>
           <br />
+          <p>{{tonic.nutrients}}</p>
           <v-row style="margin-left: 20px">
             <div v-for="(nutrient, i) in tonic.nutrients" :key="i">
+              
               <p v-if="i == 0">{{ nutrient.name }}</p>
               <p v-if="i != 0">, {{ nutrient.name }}</p>
 
-              <!-- <v-col v-for="(functional, i) in nutrient.functionals" :key="i" >
-               <p>{{functional.category}}</p>
+              <v-col v-for="(functional, i) in nutrient.functionals" :key="i" >
+               <p>{{functional.content}}</p>
                
-              </v-col>-->
+              </v-col>
             </div>
           </v-row>
         </div>
