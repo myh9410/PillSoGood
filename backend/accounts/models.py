@@ -10,4 +10,4 @@ from supplements.models import Functional
 class CustomUser(AbstractUser):
     birth = models.DateField(null=True)
     gender = models.BooleanField(null=True)
-    interests = models.ManyToManyField(Functional, related_name='users', )
+    interests = models.ManyToManyField(Functional, related_name='users', blank=True)
