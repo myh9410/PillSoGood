@@ -51,29 +51,4 @@ class ReviewView(APIView):
             review.delete()
             return Response(status=200)
         return Response(status=403)
-    #     return HttpResponse
 
-
-
-
-# @api_view(['GET'])
-# def get_reviews(request, supplement_pk):
-#     # reviews = Review.objects.all(pk=supplement_pk)
-#     reviews = Review.objects.filter(supplement = supplement_pk).order_by('-pk')
-#     serializer = ReviewSerializer(reviews, many=True)
-#     return Response(serializer.data)
-
-# # 인증 유저만 작성가능
-# @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
-# def create_review(request, supplement_pk):
-#     supplement = get_object_or_404(Supplement, pk=supplement_pk)
-#     serializer = ReviewSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save(supplement=supplement, user=request.user)
-#         return Response(status=201)
-#     return Response(status=400)
-
-# @api_view(['PUT'])
-
-# @api_view(['DELETE'])
