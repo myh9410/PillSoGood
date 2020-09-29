@@ -43,8 +43,10 @@
                 <li><a href="/list">영양제</a></li>
               </ul>
             <div class="col2">
-              SSAFY 506 Pill Sol Good 팀 <br> 류승민, 김민재, 문용호, 배민규, 이규진
+              SSAFY 506 Pill So Good 팀 <br> 류승민, 김민재, 문용호, 배민규, 이규진 <br>
+              Copyright ⓒ 2020. Pill So Good. All rights reserved.
             </div>
+            
           </div>
       </div>
     </footer>

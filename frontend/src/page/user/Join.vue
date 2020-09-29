@@ -204,7 +204,10 @@ export default {
       } else if (!this.isTerm) {
         alert("약관을 읽어보시고, 동의란에 체크해주세요.");
       } else {
-        axios.post(API_SIGNUP_URL, signupInfo);
+        axios.post(API_SIGNUP_URL, signupInfo)
+        .then(res =>{
+          console.log(res);
+        })
         this.$router.push("/user/joincomplete");
         alert("회원가입이 완료되었습니다.");
       }
