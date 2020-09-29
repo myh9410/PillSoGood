@@ -14,6 +14,24 @@
       </div>
     </div>
     <br>
+    <section>
+      <div class="catchphrase">
+        <div class="s1">
+          <h3>Pill So Good은</h3>
+        </div>
+        <v-row>
+          <v-col>
+            문구 1
+          </v-col>
+          <v-col>
+            문구 2
+          </v-col>
+          <v-col>
+            문구 3
+          </v-col>
+        </v-row>
+      </div>
+    </section>
     <br>
     <div class="products">
       <vueper-slides fade :touchable="false" autoplay arrows-outside>

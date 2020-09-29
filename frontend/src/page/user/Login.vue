@@ -49,9 +49,9 @@
         />
       </div>
       <div class="snsLogin">
-        <img src="../../assets/images/google.png" @click="onGoogle" />
-        <img src="../../assets/images/kakao.png" />
-        <img src="../../assets/images/naver.png" />
+        <a href="http://localhost:8000/accounts/google/login"><img src="../../assets/images/google.png"/></a>
+        <a href="http://localhost:8000/accounts/kakao/login"><img src="../../assets/images/kakao.png" /></a>
+        <a href="http://localhost:8000/accounts/naver/login"><img src="../../assets/images/naver.png" /></a>
       </div>
       <br />
       <br />
@@ -65,7 +65,7 @@ import PV from "password-validator";
 import * as EmailValidator from "email-validator";
 import http from "@/util/http-common";
 import store from "@/store.js";
-const config = require(`../../util/config.json`);
+// const config = require(`../../util/config.json`);
 
 export default {
   name: "join",
@@ -158,12 +158,13 @@ export default {
       alert("구글");
       // console.log(config.googleAccessToken.access_token);
       // console.log(config.googleAccessToken.id_token);
-      http.post('accounts/google/login',{
-        access_token : config.googleAccessToken.access_token,
-        id_token : config.googleAccessToken.id_token
-      }).then( res => {
-        console.log(res.data);
-      })
+      // http.post('accounts/google/',{
+      //   access_token : config.googleAccessToken.access_token,
+      //   id_token : config.googleAccessToken.id_token
+      // }).then( res => {
+      //   console.log(res.data);
+      // })
+      this.$router.push("http://127.0.0.1:8000/accounts/google/login");
     },
   },
 };

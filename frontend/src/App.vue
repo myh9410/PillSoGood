@@ -7,30 +7,48 @@
     >
       <v-toolbar-title><img class="logo" src="../src/assets/images/logo-black.png" @click="toHome"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn to="/list">
+      <v-btn to="/list" color="#eebb4d" elevation="0">
         영양제
       </v-btn>
-      <v-btn to="/recommend">
+      <v-btn to="/recommend" color="#eebb4d" elevation="0">
         추천
       </v-btn>
       <div v-if="!this.$store.state.isLogged">
-        <v-btn to="/user/login">
+        <v-btn to="/user/login" color="#eebb4d" elevation="0">
           로그인
         </v-btn>
       </div>
       <div v-else>
-        <v-btn @click="onLogout">
+        <v-btn @click="onLogout" color="#eebb4d" elevation="0">
           로그아웃
         </v-btn>
       </div>
-      <v-btn to="/user/join">
+      <v-btn to="/user/join" color="#eebb4d" elevation="0">
         회원가입
       </v-btn>
     </v-app-bar>
     
     <router-view />
 
-  </div>
+    <footer>
+      <div class="footer-container">
+          <div class="col1">
+            <img src="../src/assets/images/logo-vertical-black.png">
+          </div>
+          <div class="right">
+              <ul class = "comp-link">
+                <li><a href="/home">홈으로</a></li>
+                <li><a href="/user/join">회원가입</a></li>
+                <li><a href="/recommend">추천</a></li>
+                <li><a href="/list">영양제</a></li>
+              </ul>
+            <div class="col2">
+              SSAFY 506 Pill Sol Good 팀 <br> 류승민, 김민재, 문용호, 배민규, 이규진
+            </div>
+          </div>
+      </div>
+    </footer>
+  </div>  
 </template>
 
 <script>
