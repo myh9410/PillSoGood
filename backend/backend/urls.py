@@ -15,9 +15,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('rest_auth.urls')),
     path('users/signup/', include('rest_auth.registration.urls')),
-    path('accounts/', include('allauth.urls')),
-    url(r'accounts/confirmemail/(?P<key>[-:\w]+)/$',allauthemailconfirmation,
-       name='account_confirm_email'),
+    path('all-auth/accounts/', include('allauth.urls')),
+    path('accounts/',include('accounts.urls')),
     path('supplements/', include('supplements.urls')),
     path('reviews/', include('reviews.urls')),
     # swagger 
