@@ -3,6 +3,7 @@
         <div class="checkbox">
             <!-- <p>{{checkList}}</p> -->
             <p>체크박스</p>
+            {{checkList}}
             <v-row justify="space-around" class="checkList">
                 <v-col>
                     <v-checkbox v-model="checkList" value="여성" label="여성"></v-checkbox>

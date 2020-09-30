@@ -68,7 +68,7 @@ import store from "@/store.js";
 // const config = require(`../../util/config.json`);
 
 export default {
-  name: "join",
+  name: "login",
   components: {},
   data: () => {
     return {
