@@ -2,94 +2,115 @@
     <div class="form">
         <h2>평소 관심있는 건강 항목을 선택해주세요!</h2>
         <h3>user님을 위한 맞춤 추천에 도움이 됩니다</h3>
-        {{favorites}}
-            <v-row justify="space-around" class="checkList">
-                    <v-col>
-                        <div v-for="item in list.slice(0,4)" v-bind:key="item.id" class="list1">
-                            <button @click="addFavorites(item.id)">
-                                <img :src=item.link />
-                                <br>
-                                {{item.value}}
-                            </button>
-                        </div>
-                    </v-col>
-                    <v-col>
-                        <div v-for="item in list.slice(4,8)" v-bind:key="item.id" class="list2">
-                            <button @click="addFavorites(item.id)">
-                                <img :src=item.link />
-                                <br>
-                                {{item.value}}
-                            </button>
-                        </div>
-                    </v-col>
-                    <v-col>
-                        <div v-for="item in list.slice(8,12)" v-bind:key="item.id" class="list3">
-                            <button @click="addFavorites(item.id)">
-                                <img :src=item.link />
-                                <br>
-                                {{item.value}}
-                            </button>
-                        </div>
-                    </v-col>
-                    <v-col>
-                        <div v-for="item in list.slice(12,16)" v-bind:key="item.id" class="list4">
-                            <button @click="addFavorites(item.id)">
-                                <img :src=item.link />
-                                <br>
-                                {{item.value}}
-                            </button>
-                        </div>
-                    </v-col>
-                    <v-col>
-                        <div v-for="item in list.slice(16,20)" v-bind:key="item.id" class="list5">
-                            <button @click="addFavorites(item.id)">
-                                <img :src=item.link />
-                                <br>
-                                {{item.value}}
-                            </button>
-                        </div>
-                    </v-col>
-            </v-row>
-            <v-btn>추가</v-btn>
+        <h4>최대 3개까지 선택할 수 있어요!</h4>
+        <v-row justify="space-around" class="checkList">
+            <v-col>
+                <div v-for="item in list.slice(0,4)" v-bind:key="item.id" class="list1">
+                    <button @click="addFavorites(item.idx, item.id)" :class="`${item.id}`" :style="item.status ? on : off">
+                        <img :src=item.link />
+                        <br>
+                        {{item.value}}
+                    </button>
+                </div>
+            </v-col>
+            <v-col>
+                <div v-for="item in list.slice(4,8)" v-bind:key="item.id" class="list2">
+                    <button @click="addFavorites(item.idx, item.id)" :class="`${item.id}`" :style="item.status ? on : off">
+                        <img :src=item.link />
+                        <br>
+                        {{item.value}}
+                    </button>
+                </div>
+            </v-col>
+            <v-col>
+                <div v-for="item in list.slice(8,12)" v-bind:key="item.id" class="list3">
+                    <button @click="addFavorites(item.idx, item.id)" :class="`${item.id}`" :style="item.status ? on : off">
+                        <img :src=item.link />
+                        <br>
+                        {{item.value}}
+                    </button>
+                </div>
+            </v-col>
+            <v-col>
+                <div v-for="item in list.slice(12,16)" v-bind:key="item.id" class="list4">
+                    <button @click="addFavorites(item.idx, item.id)" :class="`${item.id}`" :style="item.status ? on : off">
+                        <img :src=item.link />
+                        <br>
+                        {{item.value}}
+                    </button>
+                </div>
+            </v-col>
+            <v-col>
+                <div v-for="item in list.slice(16,20)" v-bind:key="item.id" class="list5">
+                    <button @click="addFavorites(item.idx, item.id)" :class="`${item.id}`" :style="item.status ? on : off">
+                        <img :src=item.link />
+                        <br>
+                        {{item.value}}
+                    </button>
+                </div>
+            </v-col>
+        </v-row>
+        <br>
+        <div class="submit" v-if="favorites.length <= 3">
+            <v-btn rounded x-large @click="sendFavorites">추가</v-btn>
+        </div>
     </div>
 </template>
 <script>
 import '../../assets/css/favorites.scss'
+import http from "@/util/http-common";
 export default {
     name: "favorites",
     components: {},
     data: () => {
         return {
             list : [
-                {id : 1, value : "면역", status : false, link : require('../../assets/images/favorites/1.png')},
-                {id : 2, value : "혈관", status : false, link : require('../../assets/images/favorites/2.png')},
-                {id : 3, value : "혈당", status : false, link : require('../../assets/images/favorites/3.png')},
-                {id : 4, value : "피로감", status : false, link : require('../../assets/images/favorites/4.png')},
-                {id : 5, value : "기억력", status : false, link : require('../../assets/images/favorites/5.png')},
-                {id : 6, value : "피부", status : false, link : require('../../assets/images/favorites/6.png')},
-                {id : 7, value : "간", status : false, link : require('../../assets/images/favorites/7.png')},
-                {id : 8, value : "위", status : false, link : require('../../assets/images/favorites/8.png')},
-                {id : 9, value : "체지방", status : false, link : require('../../assets/images/favorites/9.png')},
-                {id : 10, value : "장", status : false, link : require('../../assets/images/favorites/10.png')},
-                {id : 11, value : "눈", status : false, link : require('../../assets/images/favorites/11.png')},
-                {id : 12, value : "운동", status : false, link : require('../../assets/images/favorites/12.png')},
-                {id : 13, value : "뼈", status : false, link : require('../../assets/images/favorites/13.png')},
-                {id : 17, value : "치아", status : false, link : require('../../assets/images/favorites/17.png')},
-                {id : 18, value : "코", status : false, link : require('../../assets/images/favorites/18.png')},
-                {id : 19, value : "수면", status : false, link : require('../../assets/images/favorites/19.png')},
-                {id : 20, value : "신장", status : false, link : require('../../assets/images/favorites/20.png')},
-                {id : 22, value : "신진대사", status : false, link : require('../../assets/images/favorites/22.png')},
-                {id : 23, value : "갑상선", status : false, link : require('../../assets/images/favorites/23.png')},
+                {idx : 0, id : 1, value : "면역", status : false, link : require('../../assets/images/favorites/1.png')},
+                {idx : 1, id : 2, value : "혈관", status : false, link : require('../../assets/images/favorites/2.png')},
+                {idx : 2, id : 3, value : "혈당", status : false, link : require('../../assets/images/favorites/3.png')},
+                {idx : 3, id : 4, value : "피로감", status : false, link : require('../../assets/images/favorites/4.png')},
+                {idx : 4, id : 5, value : "기억력", status : false, link : require('../../assets/images/favorites/5.png')},
+                {idx : 5, id : 6, value : "피부", status : false, link : require('../../assets/images/favorites/6.png')},
+                {idx : 6, id : 7, value : "간", status : false, link : require('../../assets/images/favorites/7.png')},
+                {idx : 7, id : 8, value : "위", status : false, link : require('../../assets/images/favorites/8.png')},
+                {idx : 8, id : 9, value : "체지방", status : false, link : require('../../assets/images/favorites/9.png')},
+                {idx : 9, id : 10, value : "장", status : false, link : require('../../assets/images/favorites/10.png')},
+                {idx : 10, id : 11, value : "눈", status : false, link : require('../../assets/images/favorites/11.png')},
+                {idx : 11, id : 12, value : "운동", status : false, link : require('../../assets/images/favorites/12.png')},
+                {idx : 12, id : 13, value : "뼈", status : false, link : require('../../assets/images/favorites/13.png')},
+                {idx : 13, id : 17, value : "치아", status : false, link : require('../../assets/images/favorites/17.png')},
+                {idx : 14, id : 18, value : "코", status : false, link : require('../../assets/images/favorites/18.png')},
+                {idx : 15, id : 19, value : "수면", status : false, link : require('../../assets/images/favorites/19.png')},
+                {idx : 16, id : 20, value : "신장", status : false, link : require('../../assets/images/favorites/20.png')},
+                {idx : 17, id : 22, value : "신진대사", status : false, link : require('../../assets/images/favorites/22.png')},
+                {idx : 18, id : 23, value : "갑상선", status : false, link : require('../../assets/images/favorites/23.png')},
             ],
             favorites : [],
             checker : false,
+            on : {
+                opacity: 1.0,
+                backgroundColor: "#eebb4d",
+                outline: "none"
+            },
+            off : {
+                opacity: 0.7,
+                backgroundColor: "white",
+                outline: "none"
+            }
         }
     }, 
     methods: {
-        addFavorites(id) {
-            if (!this.list[id-1].status) this.favorites.push(id);
+        addFavorites(idx, id) {
+            console.log(id);
+            if (!this.list[idx].status) this.favorites.push(id);
             else this.favorites.splice(this.favorites.indexOf(id),1);
-            this.list[id-1].status = !this.list[id-1].status;
+            this.list[idx].status = !this.list[idx].status;
+        },
+        sendFavorites() {
+            http.post('users/interest/', this.favorites)
+            .then(function() {
+                this.$router.push("/");
+            })
         }
     } 
 }
