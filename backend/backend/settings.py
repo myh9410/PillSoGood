@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'accounts',
     'supplements',
     'reviews',
+    'recommends',
 ]
 
 REST_FRAMEWORK = {
@@ -138,8 +139,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
 
 
 # Internationalization
