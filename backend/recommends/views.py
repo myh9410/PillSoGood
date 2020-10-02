@@ -14,6 +14,7 @@ from scipy.sparse.linalg import svds
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_recommend_supplementList(request):
     # review = get_object_or_404(Review, pk=1)
     # print(review.user.id)
@@ -51,11 +52,11 @@ def get_recommend_supplementList(request):
     # print(df_svd_preds.loc[15, :])
     # print(df_svd_preds.iloc[1])
     # print(df_svd_preds.index)
-    # print(request.user)
+    # print(request.user.id)
     already_rated, predictions = collaboration_filtering(
-        df_svd_preds, 15, df_supplements, df_reviews, 10)
+        df_svd_preds, request.user.id, df_supplements, df_reviews, 10)
     # print('----')
-    print(predictions)
+    # print(predictions)
     cf_predictions = []
     for i, prediction in predictions.iterrows():
         # print(prediction)
