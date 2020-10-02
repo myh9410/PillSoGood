@@ -1,0 +1,41 @@
+
+.form h2,h3,h4 {
+    text-align: center;
+}
+
+.checkList {
+    width: 50%;
+    margin: auto;
+}
+
+.checkList img{
+    width: 75px;
+    height: 75px;
+}
+
+.checkList div {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: 30px;
+}
+
+.checkList .list1,.list2,.list3,.list4,.list5 {
+    width: 75px;
+}
+
+.checkList button {
+    padding: 8% 10% 8% 10%;
+    // border: 1px solid black;
+    border-radius: 10%;
+    opacity: 0.7;
+}
+
+.checkList button:hover,input:hover,select:hover, textarea:hover{
+    opacity: 1.0;
+    background-color: #eebb4d;
+}
+
+.form .submit {
+    margin: auto;
+    text-align: center;
+}

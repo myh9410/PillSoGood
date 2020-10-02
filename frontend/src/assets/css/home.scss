@@ -25,12 +25,12 @@
 
 .explanation {
     // border: 1px solid black;
-    width: 80%;
+    width: 70%;
     height : 25.5em;
     margin:auto;
     margin-top: 20px;
     margin-bottom: 10px;
-    background-color: rgb(255, 239, 191);
+    background-color: #f5f1da;
     // background-position: right;
 }
 
@@ -40,15 +40,34 @@
 }
 
 .products {
-    width: 80%;
+    width: 70%;
     margin:auto;
     margin-top: 20px;
     margin-bottom: 50px;
 }
 
 .buttons {
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.buttons a:link, a:visited {
+    // background-color: #eebb4d;
+    border: 1px solid #eebb4d;
+    margin: 20px;
+    margin-top: 30px;
+    line-height: 49px;
     text-align: center;
-    margin:auto;
+    width: 144px;
+    height: 49px;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+}
+
+.buttons a:hover, a:active {
+    color: white;
+    background-color: #eebb4d;
 }
 
 .pillList {
@@ -69,25 +88,100 @@
     margin: 30px;
     margin-top:5%;
     height: 30%;
-    // background-color: #ffffff;
-    // opacity: 0.6;
   }
+
 .description1 p {
     padding-top: 20px;
     font-weight: bold;
     font-size: 48px;
-    // color: #FF9900;
 }
 .description2 p{
-    margin: 5%;
-    padding-top: 10px;
-    // font-weight: bold;
+    margin-top: 2.5em;
+    margin-left: 3em;
+    padding-top: 5px;
     font-size: 24px;
-    // color: #FF9900;
 }
 
 .logo {
     width: 15%;
     vertical-align: bottom;
     cursor: pointer;
+}
+
+/*section*/
+.home section {
+    width: 70%;
+    margin: auto;
+    background-color:#e3dfc8;
+}
+
+.home section .catchphrase {
+    text-align: center;
+}
+
+
+
+/*footer*/
+
+footer {
+    background-color: #eebb4d;
+    margin-top: 50px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.footer-container {
+    display: flex;
+    position: relative;
+    width: 53%;
+    margin: 0 auto;
+}
+
+footer .footer-container .col1 {
+    width: 200px;
+    padding: 25px 0 0 0;
+    float: left;
+}
+
+footer .footer-container .col2 {
+    // width: 50%;
+    margin-left: 100px;
+}
+
+footer img{
+    float: left;
+    width: 150px;
+    height: 150px;
+}
+
+footer .right {
+    width: 820px;
+    line-height: 1.8;
+    padding: 0 0 20px;
+    // float: left;
+}
+
+footer .right ul {
+    margin-bottom: 25px;
+    padding: 20px 0;
+    padding-bottom: 40px;
+    // width: 50%;
+    border-bottom: 1px solid black;
+    list-style: none;
+}
+
+footer .right li {
+    // position: relative;
+    float: left;
+    text-align: center;
+    padding: 0 4% 0 4%;
+    margin-right: 30px;
+    margin-left: 40px;
+    list-style: none;
+}
+
+footer a {
+    text-decoration: none;
+    color: black
 }
