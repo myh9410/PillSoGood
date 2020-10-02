@@ -5,18 +5,22 @@ from rest_framework.views import APIView
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import Review
 from supplements.models import Supplement
 from .serializers import ReviewSerializer, ReviewListSerializer
 
 # @api_view(['GET','POST'])
+
+
 class ReviewView(APIView):
     # CR 에서 받는 pk는 supplement_pk
     # UD 에서 받는 pk는 review_pk
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self, request, pk):
-        reviews = Review.objects.filter(supplement = pk).order_by('-pk')
+        reviews = Review.objects.filter(supplement=pk).order_by('-pk')
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data)
 
@@ -32,7 +36,7 @@ class ReviewView(APIView):
             # return JsonResponse(data)
             return Response(status=201)
         return Response(status=400)
-    
+
     def put(self, request, pk):
         review = get_object_or_404(Review, pk=pk)
         serializer = ReviewListSerializer(review, data=request.data)
@@ -44,11 +48,10 @@ class ReviewView(APIView):
                 return Response(status=200)
             return Response(status=400)
         return Response(status=403)
-    
+
     def delete(self, request, pk):
-        review = get_object_or_404(Review,pk=pk)
+        review = get_object_or_404(Review, pk=pk)
         if request.user == review.user:
             review.delete()
             return Response(status=200)
         return Response(status=403)
-
