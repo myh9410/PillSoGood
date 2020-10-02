@@ -174,6 +174,13 @@ REST_AUTH_SERIALIZERS = {
 
 ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+
+'''
+# 이메일 인증
 # This is required otherwise it asks for email server
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
@@ -195,7 +202,7 @@ EMAIL_USE_TLS = True
 # TLS 보안 방법
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # 사이트와 관련한 자동응답을 받을 이메일 주소,'webmaster@localhost'
-
+'''
 
 # Following is added to enable registration with email instead of username
 AUTHENTICATION_BACKENDS = [
