@@ -59,6 +59,7 @@
 <script>
 import '../../assets/css/favorites.scss'
 import http from "@/util/http-common";
+import store from "@/store.js";
 export default {
     name: "favorites",
     components: {},
@@ -101,7 +102,6 @@ export default {
     }, 
     methods: {
         addFavorites(idx, id) {
-            console.log(id);
             if (!this.list[idx].status) this.favorites.push(id);
             else this.favorites.splice(this.favorites.indexOf(id),1);
             this.list[idx].status = !this.list[idx].status;
@@ -109,6 +109,7 @@ export default {
         sendFavorites() {
             http.post('users/interest/', this.favorites)
             .then(function() {
+                store.dispatch("favorites",this.favorites);
                 this.$router.push("/");
             })
         }

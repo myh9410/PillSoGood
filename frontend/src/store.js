@@ -17,9 +17,11 @@ export default new Vuex.Store({
             gender:'',
             birthday:'',
             email:'',
-            name:'',            
+            name:'',
         },
-        userInfo:{}
+        userInfo:{
+
+        }
     },
     mutations:{
         mutateIsLogin(state, isLogin){
@@ -27,6 +29,9 @@ export default new Vuex.Store({
         },
         mutateUserInfo(state, userInfo){
             state.userInfo = userInfo;
+        },
+        mutateUserFavorites(state, favorites){
+            (state.userInfo.favorites == null) ? state.userInfo.push(favorites) : state.userInfo.favorites = favorites;
         }
     },
 
@@ -45,6 +50,9 @@ export default new Vuex.Store({
             context.commit('mutateIsLogin',false);
             context.commit('mutateUserInfo',{});
             alert("로그아웃 되었습니다.");
+        },
+        favorites(context, favorites){
+            context.commit('mutateUserFavorites',favorites);
         }
     }
 })

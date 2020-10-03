@@ -137,13 +137,13 @@ export default {
       this.isSubmit = isSubmit;
     },
     onLogin() {
-      http
-        .post("users/login/", {
+      http.post("users/login/", {
           email: this.email,
           password: this.password,
         })
         .then((res) => {
           //store에 저장하고 가져다가 씀
+          console.log(res.data.user);
           store.dispatch("login", res.data.user);
           alert("로그인에 성공하였습니다!");
           this.$router.push("/");
@@ -154,18 +154,18 @@ export default {
           console.log(err);
         });
     },
-    onGoogle() {
-      alert("구글");
-      // console.log(config.googleAccessToken.access_token);
-      // console.log(config.googleAccessToken.id_token);
-      // http.post('accounts/google/',{
-      //   access_token : config.googleAccessToken.access_token,
-      //   id_token : config.googleAccessToken.id_token
-      // }).then( res => {
-      //   console.log(res.data);
-      // })
-      this.$router.push("http://127.0.0.1:8000/accounts/google/login");
-    },
+    // onGoogle() {
+    //   alert("구글");
+    //   console.log(config.googleAccessToken.access_token);
+    //   console.log(config.googleAccessToken.id_token);
+    //   http.post('accounts/google/',{
+    //     access_token : config.googleAccessToken.access_token,
+    //     id_token : config.googleAccessToken.id_token
+    //   }).then( res => {
+    //     console.log(res.data);
+    //   })
+    //   this.$router.push("http://127.0.0.1:8000/accounts/google/login");
+    // },
   },
 };
 </script>
