@@ -4,12 +4,13 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from reviews.models import Review
-from supplements.models import Supplement
+from supplements.models import Supplement, Nutrient, Functional
 from supplements.serializers import SupplementListSerializer
 import pandas as pd
 from django_pandas.io import read_frame
 import numpy as np
 from scipy.sparse.linalg import svds
+from django.http.response import JsonResponse
 # Create your views here.
 
 
@@ -87,3 +88,60 @@ def collaboration_filtering(df_svd_preds, user_id, ori_supplements_df, ori_ranks
         columns={user_row_number: 'Predictions'}).sort_values('Predictions')
 
     return user_history, recommendations
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_recommend_functional(request):
+    data = {}
+    # print(request.user.interests)
+    for interest in request.user.interests.values():
+        res = []
+        recommends = supplement_by_functional(interest['id'])
+        if recommends.empty:
+            continue
+
+        for recommend in recommends.iterrows():
+            print(recommend[1]['id'])
+            supplement = get_object_or_404(Supplement, pk=recommend[1]['id'])
+            res.append(supplement)
+        data[interest['name']] = SupplementListSerializer(res, many=True).data
+    print(data)
+    return Response(data)
+
+
+def supplement_by_functional(category_id, min_reviews=10):
+    functionals = Functional.objects.filter(category=category_id)
+    nutrients = []
+    for functional in functionals:
+        nutrients.extend(
+            list(Nutrient.objects.filter(functionals=functional.id)))
+    supplements = []
+    for nutrient in nutrients:
+        supplements.extend(
+            Supplement.objects.filter(nutrients=nutrient.id).values()
+        )
+    df_supplements_category = pd.DataFrame(supplements).drop_duplicates()
+
+    df_reviews = read_frame(Review.objects.all(), verbose=False)
+    df_reviews.drop(['id', 'title', 'content', 'created_at',
+                     'updated_at'], axis=1, inplace=True)
+    # print(df_supplements_category)
+    # print(df_reviews)
+
+    df_supplements_reviews = df_supplements_category.merge(
+        df_reviews, left_on='id', right_on='supplement')
+    # print(df_supplements_reviews)
+    ranks_group = df_supplements_reviews.groupby(['id'])
+    # print(ranks_group.sum())
+    ranks = ranks_group.agg({
+        'rank': 'mean',
+        'supplement': 'count'
+    }).rename(columns={'supplement': 'count'})
+
+    # isEnoughReviews = ranks['count'] >= min_reviews
+    # ranks = ranks[isEnoughReviews]
+
+    ranks = ranks.sort_values(by=['rank'], ascending=False)
+
+    return ranks.head(10).reset_index()
