@@ -122,6 +122,7 @@ export default {
         goDetail(sampletonic) {
             this.$router.push(`/list/${sampletonic.id}/`);
         },
+        
     }
 }
 </script>

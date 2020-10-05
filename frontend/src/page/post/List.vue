@@ -12,84 +12,124 @@
         style="width: 60%; margin: auto; padding: 60px; padding-top: 15vh"
       >
         <div class="flex">
-          <h4 class="p-2 d-flex" style="font-size: 30px">영양제 리스트</h4>
+          <h4 class="p-2 d-flex" style="font-size: 30px; text-align: center">
+            영양제 리스트
+          </h4>
         </div>
-        <div class="flex">
-          <v-text-field
-            v-model="search"
+        <div>
+          <input
+            v-model="tonicName"
             class="p-2 d-flex"
             append-icon="mdi-magnify"
-            label="Search"
-            single-line
             hide-details
-            @input="handleSearchInput"
-          ></v-text-field>
+            placeholder="검색"
+            style="border: solid 1px #dadada"
+          />
+          
+          
+          <!-- 검색창이 빈칸일떄 -->
+          <div v-if="tonicName==``">
+          <p>햐이</p>
+          <v-row>
+            <v-col v-for="(tonic, i) in tonics" :key="i" cols="6" md="3">
+              <v-card
+                @click="goDetail(tonic)"
+                style="width: 250px; height: 250px"
+                
+              >
+                <v-img
+                  :src="
+                    'https://firebasestorage.googleapis.com/v0/b/pillsogood-764c8.appspot.com/o/images%2F' +
+                    tonic.name +
+                    '_1.jpg?alt=media'
+                  "
+                  @error="imgUrlAlt()"
+                  style="width: 250px; height: 200px; margin: auto"
+                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                ></v-img>
+
+                <hr />
+                <h4 style="text-align: center">{{ tonic.name }}</h4>
+              </v-card>
+            </v-col>
+          </v-row>
         </div>
-        <p>{{searchList}}</p>
-        <v-row>
-          <v-col
-            v-for="(tonic, i) in tonics"
-            :key="i"
-            cols="6"
-            md="3"
-            :search="search"
-          >
-            <v-card
-              @click="goDetail(tonic)"
-              style="width: 200px; height: 250px"
-              :search="search"
-            >
-              <!-- <div "> -->
-              <v-img
-                src="../../assets/images/sample1.png"
-                style="width: 200px; height: 200px; margin: auto"
-                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              ></v-img>
-              <!-- </div> -->
-              <hr />
-              <h4 style="text-align: center">{{ tonic.name }}</h4>
-            </v-card>
-          </v-col>
-        </v-row>
+
+         <!-- 검색창에 뭐가 있을때 -->
+         <div v-else>
+{{searchList}}
+<p>{{tonicName}}</p>
+          <div>
+          <v-row>
+            <v-col v-for="(tonic, i) in searchList" :key="i" cols="6" md="3">
+              <v-card
+                @click="goDetail(tonic)"
+                style="width: 250px; height: 250px"
+                v-if="tonic.name.includes(tonicName)"
+              >
+                <v-img
+                  :src="
+                    'https://firebasestorage.googleapis.com/v0/b/pillsogood-764c8.appspot.com/o/images%2F' +
+                    tonic.name +
+                    '_1.jpg?alt=media'
+                  "
+                  @error="imgUrlAlt()"
+                  style="width: 250px; height: 200px; margin: auto"
+                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                ></v-img>
+
+                <hr />
+                <h4 style="text-align: center">{{ tonic.name }}</h4>
+              </v-card>
+            </v-col>
+          </v-row>
+        </div>
+
+
+         </div>
+
+        </div>
       </div>
     </section>
 
     <div class="btn-cover d-flex justify-content-center align-items-center">
-      <!-- <button :disabled="pageNum === 1" @click="prevPage" class="page-btn btn btn-info m-2">
-        <p>이전</p>
-      </button>
-      <span class="page-count m-0">
-        <h4>{{ pageNum }} / 100</h4>
-      </span> -->
       <button
-        :disabled="pageNum >= 100"
+        :disabled="pageNum >= 1000"
         @click="nextPage"
         class="page-btn btn btn-info m-2"
       >
-        <p>더보기 ({{ pageNum }} / 100)</p>
+        <p>더보기 ({{ pageNum }} / 1000)</p>
       </button>
     </div>
+
+   
   </div>
 </template>
 
 <script>
-// import simage1 from "../../assets/images/sample1.png";
-// import simage2 from "../../assets/images/sample2.jpg";
 const API_BASE_URL = "http://localhost:8000";
+import simage1 from "../../assets/images/noimage.gif";
 export default {
   components: {
     // simage1
   },
   data: () => ({
-    search: "",
+    tonicName: "",
     channel_name: "",
     tonics: [],
     pageNum: 1,
     howto: true,
-    searchList:[]
+    listData: [],
+    searchList: [],
   }),
   created() {
     this.fetchTonicList(1);
+    var i=0
+    while( i < 100 ){
+      this.allTonicList(i)
+      i++
+    }
+  
   },
   methods: {
     goDetail(tonic) {
@@ -107,33 +147,49 @@ export default {
       this.$axios
         .get(API_TONIC_LIST_URL, config)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
 
           for (var i = 0; i < 10; i++) {
             this.tonics.push(res.data[i]);
           }
-          console.log(this.tonics);
+          // console.log(this.tonics);
         })
         .catch((err) => {
           console.error(err);
         });
     },
+
+    allTonicList(page) {
+      const API_TONIC_LIST_URL = API_BASE_URL + `/supplements/list/${page}`;
+      const config = {};
+      this.$axios
+        .get(API_TONIC_LIST_URL, config)
+        .then((res) => {
+          // console.log(res.data);
+
+          for (var i = 0; i < 10; i++) {
+            this.searchList.push(res.data[i]);
+          }
+          // console.log(this.tonics);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+
+
     nextPage() {
       this.pageNum += 1;
 
       this.fetchTonicList(this.pageNum);
     },
-    // prevPage() {
-    //   this.pageNum -= 1;
 
-    //   this.fetchTonicList(this.pageNum);
-    // },
     handleSearchInput(e) {
       this.search = e.target.value;
       if (this.search.length !== 0) {
         clearTimeout(this.debounce);
         this.debounce = setTimeout(() => {
-          const filteredList = this.tonics.filter(tonic=>
+          const filteredList = this.tonics.filter((tonic) =>
             tonic.title.includes(this.search)
           );
           this.searchList = filteredList;
@@ -144,6 +200,9 @@ export default {
           this.searchList = [];
         }, 500);
       }
+    },
+    imgUrlAlt() {
+      event.target.src = simage1;
     },
   },
 };
