@@ -54,10 +54,84 @@
         <div class="submit" v-if="favorites.length <= 3">
             <v-btn rounded x-large @click="sendFavorites">추가</v-btn>
         </div>
+      </v-col>
+      <v-col>
+        <div
+          v-for="item in list.slice(4, 8)"
+          v-bind:key="item.id"
+          class="list2"
+        >
+          <button
+            @click="addFavorites(item.idx, item.id)"
+            :class="`${item.id}`"
+            :style="item.status ? on : off"
+          >
+            <img :src="item.link" />
+            <br />
+            {{ item.value }}
+          </button>
+        </div>
+      </v-col>
+      <v-col>
+        <div
+          v-for="item in list.slice(8, 12)"
+          v-bind:key="item.id"
+          class="list3"
+        >
+          <button
+            @click="addFavorites(item.idx, item.id)"
+            :class="`${item.id}`"
+            :style="item.status ? on : off"
+          >
+            <img :src="item.link" />
+            <br />
+            {{ item.value }}
+          </button>
+        </div>
+      </v-col>
+      <v-col>
+        <div
+          v-for="item in list.slice(12, 16)"
+          v-bind:key="item.id"
+          class="list4"
+        >
+          <button
+            @click="addFavorites(item.idx, item.id)"
+            :class="`${item.id}`"
+            :style="item.status ? on : off"
+          >
+            <img :src="item.link" />
+            <br />
+            {{ item.value }}
+          </button>
+        </div>
+      </v-col>
+      <v-col>
+        <div
+          v-for="item in list.slice(16, 20)"
+          v-bind:key="item.id"
+          class="list5"
+        >
+          <button
+            @click="addFavorites(item.idx, item.id)"
+            :class="`${item.id}`"
+            :style="item.status ? on : off"
+          >
+            <img :src="item.link" />
+            <br />
+            {{ item.value }}
+          </button>
+        </div>
+      </v-col>
+    </v-row>
+    <br />
+    <div class="submit" v-if="favorites.length <= 3">
+      <v-btn rounded x-large @click="sendFavorites">추가</v-btn>
     </div>
+  </div>
 </template>
 <script>
-import '../../assets/css/favorites.scss'
+import "../../assets/css/favorites.scss";
 import http from "@/util/http-common";
 export default {
     name: "favorites",
