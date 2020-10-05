@@ -1,7 +1,7 @@
 <template>
   <div data-app>
     <div style="width: 700px; margin: 0 auto">
-      <div style="width: 100%; padding-top: 50px; margin: auto">
+      <div style="width: 100%; padding-top: 10px; margin: auto">
         <!--         
             <div style="margin-top:50px"> -->
 
@@ -10,6 +10,8 @@
           style="width: 40%"
           id="logo"
         />
+        <h1 style="text-align:center">회원가입</h1>
+        <br/><br/>
         <p style="text-align: left; margin-bottom: 4px">이메일</p>
 
         <input
@@ -179,8 +181,8 @@
 </template>
 
 <script>
-import axios from "axios";
-const API_BASE_URL = "http://localhost:8000";
+// import axios from "axios";
+// const API_BASE_URL = "http://localhost:8000";
 // import * as EmailValidator from "email-validator";
 import store from "@/store.js";
 
@@ -228,7 +230,7 @@ export default {
 
     },
     Signup() {
-      const API_SIGNUP_URL = API_BASE_URL + "/users/signup/";
+      // const API_SIGNUP_URL = API_BASE_URL + "/users/signup/";
       const signupInfo = {
         username: this.username,
         email: this.email,

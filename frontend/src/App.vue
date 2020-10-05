@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div data-app id="app">
     <v-app-bar color="#eebb4d" dense dark>
       <v-toolbar-title
         ><img
@@ -17,10 +17,36 @@
         <v-btn to="/user/join" color="#eebb4d" elevation="0"> 회원가입 </v-btn>
       </div>
       <div v-else>
-        <v-btn @click="onLogout" color="#eebb4d" elevation="0">
+        <v-menu
+        bottom
+        offset-y
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            class="ma-2"
+            v-bind="attrs"
+            v-on="on"
+            color="#eebb4d" 
+          >
+            gd
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, i) in items"
+            :key="i"
+            @click="() => {}"
+          >
+            <v-list-item-title>{{ item.name }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+        
+  
+      </div>
+      <v-btn @click="onLogout" color="#eebb4d" elevation="0">
           로그아웃
         </v-btn>
-      </div>
     </v-app-bar>
 
     <router-view />
@@ -65,6 +91,8 @@ export default {
   mounted() {},
   data: () => ({
     isFooter: true,
+    items:[{name:"관심사 변경"},{} ],
+      
   }),
   methods: {
     toHome() {
