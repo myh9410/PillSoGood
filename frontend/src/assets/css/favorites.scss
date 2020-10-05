@@ -16,7 +16,7 @@
 .checkList div {
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-left: 30px;
+    margin-left: 15px;
 }
 
 .checkList .list1,.list2,.list3,.list4,.list5 {
@@ -30,7 +30,7 @@
     opacity: 0.7;
 }
 
-.checkList button:hover,input:hover,select:hover, textarea:hover{
+.checkList button:hover {
     opacity: 1.0;
     background-color: #eebb4d;
 }
