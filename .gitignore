@@ -164,3 +164,7 @@ frontend/package-lock.json
 imageUpload/img/
 imageUpload/img (2).zip
 imageUpload/img (2).z01
+
+.idea/
+
+0*.py
