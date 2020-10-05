@@ -8,14 +8,31 @@
       <div class="description2">
         <p>약 <b>3만개</b>의 영양제 중에, <br>내게 맞는 조합을 추천해줘요!</p>
       </div>
+      <div class="buttons">
+          <a href="/list">제품 보기</a>
+          <a href="/recommend">영양제 추천</a>
+      </div>
     </div>
-
-    <div class="buttons">
-      <!-- @click="onList" -->
-      <v-btn class="pillList" large color="#BCAAA4">제품 보기</v-btn>
-      <v-btn class="recommend" large color="#BCAAA4">영양제 추천</v-btn>
-    </div>
-
+    <br>
+    <section>
+      <div class="catchphrase">
+        <div class="s1">
+          <h3>Pill So Good은</h3>
+        </div>
+        <v-row>
+          <v-col>
+            문구 1
+          </v-col>
+          <v-col>
+            문구 2
+          </v-col>
+          <v-col>
+            문구 3
+          </v-col>
+        </v-row>
+      </div>
+    </section>
+    <br>
     <div class="products">
       <vueper-slides fade :touchable="false" autoplay arrows-outside>
         <vueper-slide v-for="(sampletonic, i) in sampletonics" :key="i" :title="sampletonic.name" :image="sampletonic.src" />

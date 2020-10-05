@@ -7,17 +7,22 @@ import Join from '../page/user/Join.vue'
 import Login from '../page/user/Login.vue'
 import JoinComplete from '../page/user/JoinComplete.vue'
 import Home from '../page/Home.vue'
-
+import Favorites from '../page/user/Favorites.vue'
 import Recommend from '../page/post/Recommend.vue'
 import List from '../page/post/List.vue'
 import TonicDetail from '../page/post/TonicDetail.vue'
-
+import practice from '../page/post/practice'
 Vue.use(Router)
 // Vue.use(Vuex)
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/practice',
+      name: 'practice',
+      component: practice
+    },
     {
       path: '/',
       name: 'Home',
@@ -32,6 +37,11 @@ export default new Router({
       path: '/user/joincomplete',
       name: 'JoinComplete',
       component: JoinComplete
+    },
+    {
+      path: '/user/favorites',
+      name: 'favorites',
+      component: Favorites
     },
     {
       path: '/user/login',
