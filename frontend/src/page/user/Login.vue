@@ -49,13 +49,14 @@
         />
       </div>
       <div class="snsLogin">
-        <a href="http://localhost:8000/accounts/google/login"><img src="../../assets/images/google.png"/></a>
-        <a href="http://localhost:8000/accounts/kakao/login"><img src="../../assets/images/kakao.png" /></a>
-        <a href="http://localhost:8000/accounts/naver/login"><img src="../../assets/images/naver.png" /></a>
+        <img src="../../assets/images/google.png" @click="onGoogle" />
+        <img src="../../assets/images/kakao.png" @click="onKakao" />
+        <img src="../../assets/images/naver.png" @click="onNaver" />
       </div>
       <br />
       <br />
     </div>
+    <div id="naver_id_login"></div>
   </div>
 </template>
 
@@ -161,16 +162,51 @@ export default {
     },
     onGoogle() {
       alert("구글");
-      // console.log(config.googleAccessToken.access_token);
-      // console.log(config.googleAccessToken.id_token);
-      // http.post('accounts/google/',{
-      //   access_token : config.googleAccessToken.access_token,
-      //   id_token : config.googleAccessToken.id_token
-      // }).then( res => {
-      //   console.log(res.data);
-      // })
-      this.$router.push("http://127.0.0.1:8000/accounts/google/login");
+      this.$gAuth.signIn().then(GoogleUser => {
+        var gProfile = GoogleUser.getBasicProfile();
+        var gNickname = gProfile.getName();
+        var gEmail = gProfile.getEmail();
+        console.log(gNickname);
+        console.log(gEmail);
+
+        // http.post("", {
+        //   email : gEmail,
+        //   nickname : gNickname
+        // }).then(data => {
+        //   console.log(data);
+        // })
+      })
     },
+    onKakao() {
+      window.Kakao.Auth.login({
+        scope : 'account_email, profile',
+        success: this.GetMe,
+      });
+    },
+    GetMe(){
+      window.Kakao.API.request({
+        url: '/v2/user/me',
+        success : res => {
+          const kakao_account = res.kakao_account;
+          const userInfo = {
+            nickname : kakao_account.profile.nickname,
+            email : kakao_account.email
+          }
+          console.log(userInfo);
+          // http.post('',{
+          //   email : userInfo.email,
+          //   nickname : userInfo.nickname
+          // }).then(data => {
+
+          // })
+        }
+      })
+    },
+    onNaver() {
+      
+      // naver_id_login.setDomain("http://localhost:8080");
+      // naver_id_login.init_naver_id_login();
+    }
   },
 };
 </script>
