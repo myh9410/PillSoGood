@@ -107,8 +107,16 @@ export default {
             this.list[idx].status = !this.list[idx].status;
         },
         sendFavorites() {
-            http.post('users/interest/', this.favorites)
-            .then(function() {
+            const config = {
+                headers: {
+                Authorization: `Token ${this.$cookies.get("auth-token")}`,
+                },
+            };
+            http.post('accounts/interest/',{
+                interests : this.favorites
+            } , config)
+           .then(()=> {
+            //  console.log(this.favorites)
                 this.$router.push("/");
             })
         }

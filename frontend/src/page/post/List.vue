@@ -24,9 +24,7 @@
             hide-details
             placeholder="검색"
             style="border: solid 1px #dadada"
-          />
-          
-          
+          />  
           <!-- 검색창이 빈칸일떄 -->
           <div v-if="tonicName==``">
           <p>햐이</p>
@@ -35,7 +33,6 @@
               <v-card
                 @click="goDetail(tonic)"
                 style="width: 250px; height: 250px"
-                
               >
                 <v-img
                   :src="
@@ -57,15 +54,16 @@
 
          <!-- 검색창에 뭐가 있을때 -->
          <div v-else>
-{{searchList}}
+<!-- {{searchList}} -->
 <p>{{tonicName}}</p>
           <div>
-          <v-row>
-            <v-col v-for="(tonic, i) in searchList" :key="i" cols="6" md="3">
+          <v-row >
+            <v-col v-for="(tonic, i) in searchList" :key="i" cols="6" md="3" >
+              
               <v-card
                 @click="goDetail(tonic)"
                 style="width: 250px; height: 250px"
-                v-if="tonic.name.includes(tonicName)"
+               
               >
                 <v-img
                   :src="
@@ -81,6 +79,7 @@
                 <hr />
                 <h4 style="text-align: center">{{ tonic.name }}</h4>
               </v-card>
+
             </v-col>
           </v-row>
         </div>
@@ -98,7 +97,7 @@
         @click="nextPage"
         class="page-btn btn btn-info m-2"
       >
-        <p>더보기 ({{ pageNum }} / 1000)</p>
+        <p>더보기</p>
       </button>
     </div>
 
