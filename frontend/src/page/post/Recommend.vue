@@ -80,7 +80,7 @@
 </div>
 <div>
 
-    
+
 </div>
 
 
@@ -91,7 +91,9 @@
 import '../../assets/css/recommend.scss'
 import simage1 from "../../assets/images/sample1.png";
 import simage2 from "../../assets/images/sample2.jpg";
-
+// import http from "@/util/http-common";
+// import axios from "axios";
+// const API_BASE_URL = "http://localhost:8000";
 export default {
     name: 'Recommend',
     components: {
@@ -131,6 +133,22 @@ export default {
         goDetail(sampletonic) {
             this.$router.push(`/list/${sampletonic.id}/`);
         },
+        // recommends() {
+           
+        // const config = {};
+        // http.get(API_RECOMMEND_LIST_URL, config)
+        //     .then((res) => {
+        //     // console.log(res.data);
+
+        // //   for (var i = 0; i < 10; i++) {
+        // //     this.tonics.push(res.data[i]);
+        // //   }
+        //   // console.log(this.tonics);
+        // })
+        // .catch((err) => {
+        //   console.error(err);
+        // });
+        // }
         
     }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div data-app id="app">
     <v-app-bar color="#eebb4d" dense dark>
       <v-toolbar-title
         ><img
@@ -20,6 +20,18 @@
         <v-btn @click="onLogout" color="#eebb4d" elevation="0">
           로그아웃
         </v-btn>
+        <!-- <v-menu bottom offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn class="ma-2" v-bind="attrs" v-on="on" color="#eebb4d">
+              gd
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}">
+              <v-list-item-title>{{ item.name }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu> -->
       </div>
     </v-app-bar>
 
@@ -32,7 +44,7 @@
         </div>
         <div class="right">
           <ul class="comp-link">
-            <li><a href="/home">홈으로</a></li>
+            <li><a href="/">홈으로</a></li>
             <li><a href="/user/join">회원가입</a></li>
             <li><a href="/recommend">추천</a></li>
             <li><a href="/list">영양제</a></li>
@@ -65,6 +77,7 @@ export default {
   mounted() {},
   data: () => ({
     isFooter: true,
+    items: [{ name: "관심사 변경" }, {}],
   }),
   methods: {
     toHome() {
@@ -106,3 +119,15 @@ export default {
   },
 };
 </script>
+<style>
+@font-face {
+  font-family: "Bazzi";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  font-family: "Bazzi";
+}
+</style>

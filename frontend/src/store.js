@@ -11,14 +11,6 @@ export default new Vuex.Store({
         token: '',
         role:'',
         isLogged: false,
-        userData:{
-            username:'',
-            password:'',
-            gender:'',
-            birthday:'',
-            email:'',
-            name:'',            
-        },
         userInfo:{}
     },
     mutations:{

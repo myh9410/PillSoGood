@@ -1,7 +1,7 @@
 <template>
     <div class="form">
         <h2>평소 관심있는 건강 항목을 선택해주세요!</h2>
-        <h3>user님을 위한 맞춤 추천에 도움이 됩니다</h3>
+        <h3>{{user}}님을 위한 맞춤 추천에 도움이 됩니다</h3>
         <h4>최대 3개까지 선택할 수 있어요!</h4>
         <v-row justify="space-around" class="checkList">
             <v-col>
@@ -87,6 +87,7 @@ export default {
             ],
             favorites : [],
             checker : false,
+            user : '',
             on : {
                 opacity: 1.0,
                 backgroundColor: "#eebb4d",
@@ -99,6 +100,9 @@ export default {
             }
         }
     }, 
+    beforeMount() {
+        this.user = this.$store.state.userInfo.username;
+    },
     methods: {
         addFavorites(idx, id) {
             console.log(id);
@@ -116,7 +120,7 @@ export default {
                 interests : this.favorites
             } , config)
            .then(()=> {
-            //  console.log(this.favorites)
+                console.log(this.$store.state.userInfo);
                 this.$router.push("/");
             })
         }
