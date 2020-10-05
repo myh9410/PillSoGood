@@ -222,10 +222,10 @@ export default {
     this.component = this;
   },
   methods: {
-    // setCookie(key){
-    //   this.$cookies.set('auth-token',key)
+    setCookie(key){
+      this.$cookies.set('auth-token',key)
 
-    // },
+    },
     Signup() {
       const API_SIGNUP_URL = API_BASE_URL + "/users/signup/";
       const signupInfo = {
@@ -260,13 +260,13 @@ export default {
       } else {
         console.log(signupInfo)
         axios.post(API_SIGNUP_URL, signupInfo)
-        // .then(res => 
+        .then(res => 
         { 
-        // this.setCookie(res.data.key)
-        this.$router.push("/user/joincomplete");
+        this.setCookie(res.data.key)
+        this.$router.push("/user/favorites");
         alert("회원가입이 완료되었습니다.");
       }
-      // )
+      )
       }
     },
     emailCheck() {

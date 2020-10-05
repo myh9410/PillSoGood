@@ -12,10 +12,11 @@
       <v-btn to="/recommend" color="#eebb4d" elevation="0"> 추천 </v-btn>
       <div v-if="!this.$store.state.isLogged">
         <v-btn to="/user/login" color="#eebb4d" elevation="0"> 로그인 </v-btn>
+      </div>
+      <div v-if="!this.$store.state.isLogged">
         <v-btn to="/user/join" color="#eebb4d" elevation="0"> 회원가입 </v-btn>
       </div>
       <div v-else>
-
         <v-btn @click="onLogout" color="#eebb4d" elevation="0">
           로그아웃
         </v-btn>
@@ -98,10 +99,10 @@ export default {
     },
   },
   created() {
-     let url = this.$route.name;
-     console.log(url)
+    let url = this.$route.name;
+    console.log(url);
     this.checkFooter(url);
-    console.log(this.isFooter)
+    console.log(this.isFooter);
   },
 };
 </script>
