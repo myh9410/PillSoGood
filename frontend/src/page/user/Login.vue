@@ -115,6 +115,10 @@ export default {
     },
   },
   methods: {
+    setCookie(key){
+      this.$cookies.set('auth-token',key)
+      
+    },
     emailCheckForm() {
       if (this.email.length >= 0 && !EmailValidator.validate(this.email))
         this.error.email = "이메일 형식이 아닙니다.";
@@ -144,6 +148,7 @@ export default {
         })
         .then((res) => {
           //store에 저장하고 가져다가 씀
+          this.setCookie(res.data.key)
           store.dispatch("login", res.data.user);
           alert("로그인에 성공하였습니다!");
           this.$router.push("/");

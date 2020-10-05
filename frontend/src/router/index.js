@@ -11,13 +11,18 @@ import Favorites from '../page/user/Favorites.vue'
 import Recommend from '../page/post/Recommend.vue'
 import List from '../page/post/List.vue'
 import TonicDetail from '../page/post/TonicDetail.vue'
-
+import practice from '../page/post/practice'
 Vue.use(Router)
 // Vue.use(Vuex)
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/practice',
+      name: 'practice',
+      component: practice
+    },
     {
       path: '/',
       name: 'Home',
