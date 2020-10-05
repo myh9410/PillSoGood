@@ -40,9 +40,9 @@
               </div>
               <time :datetime="review.created_at" />
             </div>
-            <br />
+            <br/>
 
-            <h3>{{ review.title }}</h3>
+            <h3 style="text-align:left">{{ review.title }}</h3>
             <p>{{ review.content }}</p>
             <div style="width: 300px; text-align: center">
               <p style="width: 30%" class="btn" @click.stop="dialog = true">
@@ -92,9 +92,10 @@
 </template>
 
 <script>
-const API_BASE_URL = "http://localhost:8000";
 import store from "@/store.js";
 import StarRating from "vue-star-rating";
+import http from "@/util/http-common";
+
 export default {
   data() {
     return {
@@ -119,14 +120,13 @@ export default {
 
   methods: {
     createReview() {
-      const API_REVIEW_CREATE_URL = API_BASE_URL + `/reviews/${this.params}/`;
-      const config = {
+     const config = {
         headers: {
           Authorization: `Token ${this.$cookies.get("auth-token")}`,
         },
       };
-      this.$axios
-        .post(API_REVIEW_CREATE_URL, this.ReviewInfo, config)
+      http
+        .post( `/reviews/${this.params}/`, this.ReviewInfo, config)
         .then(() => {
           console.log(this.ReviewInfo);
           this.ReviewInfo.title = "";
@@ -141,27 +141,26 @@ export default {
         });
     },
     deleteReview(review) {
-      const DeleteUrl = API_BASE_URL + `/reviews/${review.id}/`;
       const config = {
         headers: {
           Authorization: `Token ${this.$cookies.get("auth-token")}`,
         },
       };
-      this.$axios.delete(DeleteUrl, config).then(() => {
+      http.delete( `/reviews/${review.id}/`, config).then(() => {
         console.log(review);
 
         this.fetchReviewList();
       });
     },
     updateReview(review) {
-      const API_REVIEW_UPDATE_URL = API_BASE_URL + `/reviews/${review.id}/`;
+
       const config = {
         headers: {
           Authorization: `Token ${this.$cookies.get("auth-token")}`,
         },
       };
-      this.$axios
-        .put(API_REVIEW_UPDATE_URL, this.UpdateInfo, config)
+      http
+        .put(`/reviews/${review.id}/`, this.UpdateInfo, config)
         .then(() => {
           // console.log(this.ReviewInfo);
           this.UpdateInfo.title = "";
@@ -176,10 +175,9 @@ export default {
         });
     },
     fetchReviewList() {
-      const API_REVIEW_LIST_URL = API_BASE_URL + `/reviews/${this.params}/`;
       const config = {};
-      this.$axios
-        .get(API_REVIEW_LIST_URL, config)
+      http
+        .get(`/reviews/${this.params}/`, config)
         .then((res) => {
           this.Review_list = res.data;
         })
