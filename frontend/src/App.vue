@@ -17,36 +17,22 @@
         <v-btn to="/user/join" color="#eebb4d" elevation="0"> 회원가입 </v-btn>
       </div>
       <div v-else>
-        <v-menu
-        bottom
-        offset-y
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            class="ma-2"
-            v-bind="attrs"
-            v-on="on"
-            color="#eebb4d" 
-          >
-            gd
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="(item, i) in items"
-            :key="i"
-            @click="() => {}"
-          >
-            <v-list-item-title>{{ item.name }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-        
-  
-      </div>
-      <v-btn @click="onLogout" color="#eebb4d" elevation="0">
+        <v-btn @click="onLogout" color="#eebb4d" elevation="0">
           로그아웃
         </v-btn>
+        <!-- <v-menu bottom offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn class="ma-2" v-bind="attrs" v-on="on" color="#eebb4d">
+              gd
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}">
+              <v-list-item-title>{{ item.name }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu> -->
+      </div>
     </v-app-bar>
 
     <router-view />
@@ -91,8 +77,7 @@ export default {
   mounted() {},
   data: () => ({
     isFooter: true,
-    items:[{name:"관심사 변경"},{} ],
-      
+    items: [{ name: "관심사 변경" }, {}],
   }),
   methods: {
     toHome() {
@@ -136,13 +121,13 @@ export default {
 </script>
 <style>
 @font-face {
-    font-family: "BMHANNAAir";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.0/BMHANNAAir.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Bazzi";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 * {
-  font-family: "BMHANNAAir";
+  font-family: "Bazzi";
 }
 </style>

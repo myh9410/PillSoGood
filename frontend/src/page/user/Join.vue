@@ -181,10 +181,8 @@
 </template>
 
 <script>
-// import axios from "axios";
-// const API_BASE_URL = "http://localhost:8000";
-// import * as EmailValidator from "email-validator";
 import store from "@/store.js";
+import http from "@/util/http-common.js";
 
 export default {
   components: {},
@@ -230,7 +228,6 @@ export default {
 
     },
     Signup() {
-      // const API_SIGNUP_URL = API_BASE_URL + "/users/signup/";
       const signupInfo = {
         username: this.username,
         email: this.email,
@@ -261,20 +258,22 @@ export default {
       } else if (!this.isTerm) {
         alert("약관을 읽어보시고, 동의란에 체크해주세요.");
       } else {
-        axios.post(API_SIGNUP_URL, signupInfo)
+        http.post("/users/signup/",signupInfo)
         .then(res => 
         { 
-        this.setCookie(res.data.key);
-        store.dispatch("login", {
-            username : this.username,
-            email : this.email,
-            birth : this.date,
-            gender : this.gender
-        });
-        this.$router.push("/user/favorites");
-        alert("회원가입이 완료되었습니다.");
-      }
-      )
+          this.setCookie(res.data.key);
+          store.dispatch("login", {
+              username : this.username,
+              email : this.email,
+              birth : this.date,
+              gender : this.gender
+          });
+          this.$router.push("/user/favorites");
+          alert("회원가입이 완료되었습니다.");
+        }
+      ).catch (e => {
+        console.log(e.response);
+      })
       }
     },
     emailCheck() {
