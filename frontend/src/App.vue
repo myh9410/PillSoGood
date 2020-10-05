@@ -32,7 +32,7 @@
         </div>
         <div class="right">
           <ul class="comp-link">
-            <li><a href="/home">홈으로</a></li>
+            <li><a href="/">홈으로</a></li>
             <li><a href="/user/join">회원가입</a></li>
             <li><a href="/recommend">추천</a></li>
             <li><a href="/list">영양제</a></li>

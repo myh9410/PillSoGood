@@ -182,6 +182,7 @@
 import axios from "axios";
 const API_BASE_URL = "http://localhost:8000";
 // import * as EmailValidator from "email-validator";
+import store from "@/store.js";
 
 export default {
   components: {},
@@ -258,11 +259,16 @@ export default {
       } else if (!this.isTerm) {
         alert("약관을 읽어보시고, 동의란에 체크해주세요.");
       } else {
-        console.log(signupInfo)
         axios.post(API_SIGNUP_URL, signupInfo)
         .then(res => 
         { 
-        this.setCookie(res.data.key)
+        this.setCookie(res.data.key);
+        store.dispatch("login", {
+            username : this.username,
+            email : this.email,
+            birth : this.date,
+            gender : this.gender
+        });
         this.$router.push("/user/favorites");
         alert("회원가입이 완료되었습니다.");
       }
