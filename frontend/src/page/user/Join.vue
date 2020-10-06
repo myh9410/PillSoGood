@@ -11,7 +11,7 @@
           id="logo"
         />
         <h1 style="text-align:center">회원가입</h1>
-        <br/><br/>
+        <br /><br />
         <p style="text-align: left; margin-bottom: 4px">이메일</p>
 
         <input
@@ -57,7 +57,7 @@
           id="password1"
           :type="password1Type"
           placeholder="최소 8자 이상으로 입력해주세요"
-           v-bind:class="{
+          v-bind:class="{
             error: error.password1,
             complete: !error.password1 && password1.length != 0,
           }"
@@ -71,7 +71,9 @@
         <span>
           <i class="fas fa-eye"></i>
         </span>
-        <div class="error-text" v-if="error.password1">{{ error.password1 }}</div>
+        <div class="error-text" v-if="error.password1">
+          {{ error.password1 }}
+        </div>
       </div>
 
       <br />
@@ -93,7 +95,9 @@
           }"
           placeholder="비밀번호를 다시 한 번 입력해주세요"
         />
-        <div class="error-text" v-if="error.password2">{{ error.password2 }}</div>
+        <div class="error-text" v-if="error.password2">
+          {{ error.password2 }}
+        </div>
       </div>
       <div style="flex-direction: row">
         <p style="text-align: left; margin-bottom: 4px">성별</p>
@@ -181,8 +185,8 @@
 </template>
 
 <script>
-// import axios from "axios";
-// const API_BASE_URL = "http://localhost:8000";
+import axios from "axios";
+const API_BASE_URL = "http://localhost:8000";
 // import * as EmailValidator from "email-validator";
 import store from "@/store.js";
 
@@ -199,7 +203,7 @@ export default {
       error: {
         email: false,
         password1: false,
-        password2: false
+        password2: false,
       },
       password1Type: "password",
       password2Type: "password",
@@ -211,7 +215,7 @@ export default {
   computed: {},
 
   watch: {
-    email: function () {
+    email: function() {
       this.emailCheck();
     },
     password1: function() {
@@ -219,18 +223,17 @@ export default {
     },
     password2: function() {
       this.password2Check();
-    }
+    },
   },
   created() {
     this.component = this;
   },
   methods: {
-    setCookie(key){
-      this.$cookies.set('auth-token',key)
-
+    setCookie(key) {
+      this.$cookies.set("auth-token", key);
     },
     Signup() {
-      // const API_SIGNUP_URL = API_BASE_URL + "/users/signup/";
+      const API_SIGNUP_URL = API_BASE_URL + "/users/signup/";
       const signupInfo = {
         username: this.username,
         email: this.email,
@@ -261,20 +264,17 @@ export default {
       } else if (!this.isTerm) {
         alert("약관을 읽어보시고, 동의란에 체크해주세요.");
       } else {
-        axios.post(API_SIGNUP_URL, signupInfo)
-        .then(res => 
-        { 
-        this.setCookie(res.data.key);
-        store.dispatch("login", {
-            username : this.username,
-            email : this.email,
-            birth : this.date,
-            gender : this.gender
+        axios.post(API_SIGNUP_URL, signupInfo).then((res) => {
+          this.setCookie(res.data.key);
+          store.dispatch("login", {
+            username: this.username,
+            email: this.email,
+            birth: this.date,
+            gender: this.gender,
+          });
+          this.$router.push("/user/favorites");
+          alert("회원가입이 완료되었습니다.");
         });
-        this.$router.push("/user/favorites");
-        alert("회원가입이 완료되었습니다.");
-      }
-      )
       }
     },
     emailCheck() {
@@ -295,14 +295,12 @@ export default {
       }
     },
     password2Check() {
-      if (this.password2.length >= 0 && this.password1!=this.password2) {
+      if (this.password2.length >= 0 && this.password1 != this.password2) {
         this.error.password2 = "비밀번호를 똑같이 적어주세요";
       } else {
         this.error.password2 = false;
       }
     },
-
-
   },
 };
 </script>
