@@ -11,7 +11,7 @@
           id="logo"
         />
         <h1 style="text-align:center">회원가입</h1>
-        <br/><br/>
+        <br /><br />
         <p style="text-align: left; margin-bottom: 4px">이메일</p>
 
         <input
@@ -57,7 +57,7 @@
           id="password1"
           :type="password1Type"
           placeholder="최소 8자 이상으로 입력해주세요"
-           v-bind:class="{
+          v-bind:class="{
             error: error.password1,
             complete: !error.password1 && password1.length != 0,
           }"
@@ -71,7 +71,9 @@
         <span>
           <i class="fas fa-eye"></i>
         </span>
-        <div class="error-text" v-if="error.password1">{{ error.password1 }}</div>
+        <div class="error-text" v-if="error.password1">
+          {{ error.password1 }}
+        </div>
       </div>
 
       <br />
@@ -93,7 +95,9 @@
           }"
           placeholder="비밀번호를 다시 한 번 입력해주세요"
         />
-        <div class="error-text" v-if="error.password2">{{ error.password2 }}</div>
+        <div class="error-text" v-if="error.password2">
+          {{ error.password2 }}
+        </div>
       </div>
       <div style="flex-direction: row">
         <p style="text-align: left; margin-bottom: 4px">성별</p>
@@ -181,8 +185,9 @@
 </template>
 
 <script>
-// import axios from "axios";
-// const API_BASE_URL = "http://localhost:8000";
+import axios from "axios";
+import swal from "sweetalert";
+const API_BASE_URL = "http://localhost:8000";
 // import * as EmailValidator from "email-validator";
 import store from "@/store.js";
 
@@ -193,13 +198,13 @@ export default {
       username: "",
       password1: "",
       password2: "",
-      gender: true,
+      gender: null,
       birthday: "",
       email: "",
       error: {
         email: false,
         password1: false,
-        password2: false
+        password2: false,
       },
       password1Type: "password",
       password2Type: "password",
@@ -211,7 +216,7 @@ export default {
   computed: {},
 
   watch: {
-    email: function () {
+    email: function() {
       this.emailCheck();
     },
     password1: function() {
@@ -219,18 +224,17 @@ export default {
     },
     password2: function() {
       this.password2Check();
-    }
+    },
   },
   created() {
     this.component = this;
   },
   methods: {
-    setCookie(key){
-      this.$cookies.set('auth-token',key)
-
+    setCookie(key) {
+      this.$cookies.set("auth-token", key);
     },
     Signup() {
-      // const API_SIGNUP_URL = API_BASE_URL + "/users/signup/";
+      const API_SIGNUP_URL = API_BASE_URL + "/users/signup/";
       const signupInfo = {
         username: this.username,
         email: this.email,
@@ -243,38 +247,55 @@ export default {
 
       var exptext = /^[A-Za-z0-9_,-]+@[A-Za-z0-9,-]+\.[A-Za-z0-9,-]+/;
       var passwordExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{8,}$/;
-      if (exptext.test(signupInfo.email) == false) {
+      if (signupInfo.email === "") {
+        swal("이메일을 입력해주세요");
+      } else if (exptext.test(signupInfo.email) === false) {
         //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
-        alert("이메일형식이 올바르지 않습니다.");
-      } else if (signupInfo.username.value == "") {
-        alert("이름을 입력해주세요");
-      } else if (signupInfo.password1 == "") {
-        alert("비밀번호를 입력해주세요");
-      } else if (passwordExp.test(signupInfo.password1) == false) {
-        alert("비밀번호 형식이 잘못되었습니다.");
-      } else if (signupInfo.password1 != signupInfo.password2) {
-        alert("비밀번호가 동일하지않습니다. 다시 입력해주세요.");
-      } else if (signupInfo.gender == "") {
-        alert("성별을 체크해주세요");
-      } else if (signupInfo.birth == null) {
-        alert("생일을 입력해주세요");
+        swal("이메일형식이 올바르지 않습니다.");
+      } else if (signupInfo.username === "") {
+        swal("이름을 입력해주세요");
+      } else if (signupInfo.password1 === "") {
+        swal("비밀번호를 입력해주세요");
+      } else if (passwordExp.test(signupInfo.password1) === false) {
+        swal("비밀번호 형식이 잘못되었습니다.");
+      } else if (signupInfo.password1 !== signupInfo.password2) {
+        swal("비밀번호가 동일하지않습니다. 다시 입력해주세요.");
+      } else if (signupInfo.gender === null) {
+        swal("성별을 체크해주세요");
+      } else if (signupInfo.birth === null) {
+        swal("생일을 입력해주세요");
       } else if (!this.isTerm) {
-        alert("약관을 읽어보시고, 동의란에 체크해주세요.");
+        swal("약관을 읽어보시고, 동의란에 체크해주세요.");
       } else {
-        axios.post(API_SIGNUP_URL, signupInfo)
-        .then(res => 
-        { 
-        this.setCookie(res.data.key);
-        store.dispatch("login", {
-            username : this.username,
-            email : this.email,
-            birth : this.date,
-            gender : this.gender
-        });
-        this.$router.push("/user/favorites");
-        alert("회원가입이 완료되었습니다.");
-      }
-      )
+        axios
+          .post(API_SIGNUP_URL, signupInfo)
+          .then((res) => {
+            this.setCookie(res.data.key);
+            store.dispatch("login", {
+              username: this.username,
+              email: this.email,
+              birth: this.date,
+              gender: this.gender,
+            });
+            this.$router.push("/user/favorites");
+            swal({
+              title: "회원가입이 완료되었습니다.",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            if (err.response.data.username) {
+              swal("아이디 : " + err.response.data.username);
+            } else if (err.response.data.password) {
+              swal("비밀번호 : " + err.response.data.password);
+            } else if (err.response.data.password1) {
+              swal("비밀번호 : " + err.response.data.password1);
+            } else if (err.response.data.password2) {
+              swal("비밀번호 확인 : " + err.response.data.password2);
+            } else if (err.response.data.non_field_errors) {
+              swal("" + err.response.data.non_field_errors);
+            }
+          });
       }
     },
     emailCheck() {
@@ -295,14 +316,12 @@ export default {
       }
     },
     password2Check() {
-      if (this.password2.length >= 0 && this.password1!=this.password2) {
+      if (this.password2.length >= 0 && this.password1 != this.password2) {
         this.error.password2 = "비밀번호를 똑같이 적어주세요";
       } else {
         this.error.password2 = false;
       }
     },
-
-
   },
 };
 </script>

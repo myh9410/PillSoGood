@@ -17,40 +17,24 @@
         <v-btn to="/user/join" color="#eebb4d" elevation="0"> 회원가입 </v-btn>
       </div>
       <div v-else>
-        <v-menu
-        bottom
-        offset-y
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn 
-            
-            v-bind="attrs"
-            v-on="on"
-            style=""
-            color="#eebb4d" 
-          >
-            {{nname}}
-          </v-btn >
-        </template>
-        <v-list >
-          <v-list-item
-          >
-            <router-link to="/user/favorites" style="text-decoration:none">관심사 변경</router-link>
-            
-            
-          </v-list-item>
-          <v-list-item
-          >
-            <p @click="onLogout">로그아웃</p>
-            
-            
-          </v-list-item>
-        </v-list>
-      </v-menu>
-        
-  
+        <v-menu bottom offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn v-bind="attrs" v-on="on" style="" color="#eebb4d">
+              {{ nname }}
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item>
+              <router-link to="/user/favorites" style="text-decoration:none"
+                >관심사 변경</router-link
+              >
+            </v-list-item>
+            <v-list-item>
+              <p class="logout" @click="onLogout">로그아웃</p>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </div>
-      
     </v-app-bar>
 
     <router-view />
@@ -89,15 +73,14 @@ export default {
 
   components: {},
 
-  beforeMount() {
-    console.log(store.state.isLogged);
-  },
+  // beforeMount() {
+  //   console.log(store.state.isLogged);
+  // },
   mounted() {},
   data: () => ({
     isFooter: true,
-    items:[{name:"관심사 변경"},{} ],
-    nname:""
-      
+    items: [{ name: "관심사 변경" }, {}],
+    nname: "",
   }),
   methods: {
     toHome() {
@@ -111,11 +94,11 @@ export default {
     },
     fetchuser() {
       store.dispatch("state");
-      console.log(store.state.userData.username);
+      // console.log(store.state.userData.username);
     },
     checkFooter(url) {
       let array = ["TonicDetail"];
-      console.log(url);
+      // console.log(url);
 
       let isFooter = true;
       array.map((path) => {
@@ -133,9 +116,14 @@ export default {
   },
   created() {
     let url = this.$route.name;
-    console.log(url);
+    // console.log(url);
     this.checkFooter(url);
-    this.nname=this.$store.state.userInfo.username;
+    this.nname = this.$store.state.userInfo.username;
   },
 };
 </script>
+<style scoped>
+p.logout:hover {
+  cursor: pointer;
+}
+</style>
