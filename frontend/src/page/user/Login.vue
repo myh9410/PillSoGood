@@ -169,12 +169,51 @@ export default {
         console.log(gNickname);
         console.log(gEmail);
 
-        // http.post("", {
-        //   email : gEmail,
-        //   nickname : gNickname
-        // }).then(data => {
-        //   console.log(data);
-        // })
+        http.post("/accounts/check", {
+          email : gEmail,
+          nickname : gNickname,
+          password : "",
+
+        }).then(data => {
+          console.log(data.data.state);
+          if(data.data.state=='login'){
+            http.post("/users/login/", {
+                email: gEmail,
+                password: gEmail,
+        }).then((res) => {
+          //store에 저장하고 가져다가 씀
+          this.setCookie(res.data.key)
+          store.dispatch("login", res.data.user);
+          alert("로그인에 성공하였습니다!");
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          alert("로그인에 실패하였습니다! 다시 시도해주세요");
+          this.$router.push("/user/login");
+          console.log(err);
+        });
+          }
+          else{
+            http.post('/users/signup/',{
+                  username: gNickname,
+                  email: gEmail,
+                  password1: gEmail,
+                  password2: gEmail,
+
+                  birth: '2010-10-20',
+                  gender: true,
+            }).then(res => 
+        { 
+          this.setCookie(res.data.key);
+          store.dispatch("login", {
+              username : gNickname,
+              email : gEmail,
+          });
+          this.$router.push("/user/favorites");
+          alert("회원가입이 완료되었습니다.");
+        })
+          }
+        })
       })
     },
     onKakao() {
@@ -192,15 +231,51 @@ export default {
             nickname : kakao_account.profile.nickname,
             email : kakao_account.email
           }
-          console.log(userInfo);
-          // http.post('',{
-          //   email : userInfo.email,
-          //   nickname : userInfo.nickname
-          // }).then(data => {
+          http.post('/accounts/check',{
+            email : userInfo.email,
+            nickname : userInfo.nickname
+          }).then(data => {
+            console.log(data)
+          if(data.data.state=='login'){
 
-          // })
+            http.post("/users/login/", {
+                    email: userInfo.email,
+                    password: userInfo.email,
+            }).then((res) => {
+              //store에 저장하고 가져다가 씀
+              this.setCookie(res.data.key)
+              store.dispatch("login", res.data.user);
+              alert("로그인에 성공하였습니다!");
+              this.$router.push("/");
+            })
+            .catch((err) => {
+              alert("로그인에 실패하였습니다! 다시 시도해주세요");
+              this.$router.push("/user/login");
+              console.log(err);
+            });
+        } else{
+            http.post('/users/signup/',{
+                  username: userInfo.nickname,
+                  email: userInfo.email,
+                  password1: userInfo.email,
+                  password2: userInfo.email,
+
+                  birth: '2010-10-20',
+                  gender: true,
+            }).then(res => { 
+              this.setCookie(res.data.key);
+              store.dispatch("login", {
+                  username : userInfo.nickname,
+                  email : userInfo.email,
+              });
+              this.$router.push("/user/favorites");
+              alert("회원가입이 완료되었습니다.");
+              })
+          }
+        })
         }
-      })
+      }) 
+
     },
     onNaver() {
       

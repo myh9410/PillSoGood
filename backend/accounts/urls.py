@@ -5,4 +5,5 @@ name = "accounts"
 
 urlpatterns = [
     path('interest/', views.InterestView.as_view()),
+    path('check', views.DbcheckView.as_view()),
 ]

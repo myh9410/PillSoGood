@@ -25,7 +25,7 @@ SECRET_KEY = '$&fd%zmtk5)m(#2ourz88$ra5^mn%41-2-7k=ss6)_&-8w(#%&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['j3a506.p.ssafy.io']
+ALLOWED_HOSTS = ['j3a506.p.ssafy.io', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -212,3 +212,5 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+LOGIN_REDIRECT_URL='http://localhost:8080/user/favorites'
