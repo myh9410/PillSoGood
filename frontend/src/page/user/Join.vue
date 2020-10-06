@@ -185,10 +185,9 @@
 </template>
 
 <script>
-import axios from "axios";
+import http from "@/util/http-common";
 import swal from "sweetalert";
-const API_BASE_URL = "http://localhost:8000";
-// import * as EmailValidator from "email-validator";
+
 import store from "@/store.js";
 
 export default {
@@ -267,8 +266,8 @@ export default {
       } else if (!this.isTerm) {
         swal("약관을 읽어보시고, 동의란에 체크해주세요.");
       } else {
-        axios
-          .post(API_SIGNUP_URL, signupInfo)
+        http
+          .post(("/users/signup/",  signupInfo)
           .then((res) => {
             this.setCookie(res.data.key);
             store.dispatch("login", {
