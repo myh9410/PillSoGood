@@ -51,6 +51,7 @@ $ cd backend
 $ pip install -r requirements.txt
 $ python manage.py makemigrations
 $ python manage.py migrate
+$ python manage.py loaddata categories.json
 $ python manage.py loaddata functionals.json
 $ python manage.py loaddata nutrients.json
 $ python manage.py loaddata supplements.json

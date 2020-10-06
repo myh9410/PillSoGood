@@ -7,6 +7,7 @@ from .models import CustomUser
 from rest_framework.authtoken.models import Token
 
 
+
 class CustomRegisterSerializer(RegisterSerializer):
     birth = serializers.DateField(required=True)
     gender = serializers.BooleanField(required=True)
@@ -29,10 +30,14 @@ class TokenSerializer(serializers.ModelSerializer):
         model = Token
         fields = '__all__'
 
-
-# User = get_user_model()
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ['id','username','is_staff']
+
+class UserInterestSerializer(serializers.ModelSerializer):
+    user = UserSerializer(required=False)
+    class Meta:
+        model = CustomUser
+        fields = ['interests','user']
+        read_only_fields = ['user']

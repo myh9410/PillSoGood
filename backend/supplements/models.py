@@ -3,8 +3,11 @@ from django.db import models
 # Create your models here.
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=20)
+
 class Functional(models.Model):
-    category = models.CharField(max_length=50)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     content = models.CharField(max_length=150)
 
 
