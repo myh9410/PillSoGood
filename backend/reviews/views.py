@@ -11,7 +11,12 @@ from .models import Review
 from supplements.models import Supplement
 from .serializers import ReviewSerializer, ReviewListSerializer
 
-# @api_view(['GET','POST'])
+
+@api_view(['GET'])
+def get_reviews(request):
+    reviews = Review.objects.order_by('-created_at')
+    serializers = ReviewSerializer(reviews, many=True)
+    return Response(serializers.data)
 
 
 class ReviewView(APIView):
