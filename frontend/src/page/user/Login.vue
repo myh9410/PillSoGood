@@ -1,6 +1,6 @@
 <template>
   <div class="user" id="login">
-    <img src="../../assets/images/logo-vertical-black.png" id="logo"/>
+    <img src="../../assets/images/logo-vertical-black.png" id="logo" />
     <p>로그인</p>
     <div class="container" style="margin: auto">
       <div class="input-wrap email-wrap">
@@ -49,9 +49,15 @@
         />
       </div>
       <div class="snsLogin">
-        <a href="http://localhost:8000/accounts/google/login"><img src="../../assets/images/google.png"/></a>
-        <a href="http://localhost:8000/accounts/kakao/login"><img src="../../assets/images/kakao.png" /></a>
-        <a href="http://localhost:8000/accounts/naver/login"><img src="../../assets/images/naver.png" /></a>
+        <a href="http://localhost:8000/accounts/google/login"
+          ><img src="../../assets/images/google.png"
+        /></a>
+        <a href="http://localhost:8000/accounts/kakao/login"
+          ><img src="../../assets/images/kakao.png"
+        /></a>
+        <a href="http://localhost:8000/accounts/naver/login"
+          ><img src="../../assets/images/naver.png"
+        /></a>
       </div>
       <br />
       <br />
@@ -60,6 +66,7 @@
 </template>
 
 <script>
+import swal from "sweetalert";
 import "../../assets/css/login.scss";
 import PV from "password-validator";
 import * as EmailValidator from "email-validator";
@@ -103,21 +110,20 @@ export default {
       .letters();
   },
   watch: {
-    email: function () {
+    email: function() {
       this.emailCheckForm();
     },
-    password: function () {
+    password: function() {
       this.pwdCheckForm();
     },
-    isSubmit: function () {
+    isSubmit: function() {
       if (this.isSubmit) this.loginButton.opacity = "1.0";
       else this.loginButton.opacity = "0.4";
     },
   },
   methods: {
-    setCookie(key){
-      this.$cookies.set('auth-token',key)
-      
+    setCookie(key) {
+      this.$cookies.set("auth-token", key);
     },
     emailCheckForm() {
       if (this.email.length >= 0 && !EmailValidator.validate(this.email))
@@ -148,15 +154,23 @@ export default {
         })
         .then((res) => {
           //store에 저장하고 가져다가 씀
-          this.setCookie(res.data.key)
+          this.setCookie(res.data.key);
           store.dispatch("login", res.data.user);
-          alert("로그인에 성공하였습니다!");
+          swal({
+            title: "환영합니다!",
+            icon: "success",
+          });
+          // alert("로그인에 성공하였습니다!");
           this.$router.push("/");
         })
-        .catch((err) => {
-          alert("로그인에 실패하였습니다! 다시 시도해주세요");
-          this.$router.push("/user/login");
-          console.log(err);
+        .catch(() => {
+          swal({
+            title: "로그인에 실패하였습니다!",
+            text: "다시 시도해주세요",
+            icon: "error",
+          });
+          // this.$router.push("/user/login");
+          // console.log(err);
         });
     },
     onGoogle() {
