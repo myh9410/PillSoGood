@@ -54,8 +54,8 @@
         <div class="submit" v-if="favorites.length <= 3">
             <v-btn rounded x-large @click="sendFavorites">추가</v-btn>
         </div>
-      </v-col>
-      <v-col>
+   
+      <!-- <v-col>
         <div
           v-for="item in list.slice(4, 8)"
           v-bind:key="item.id"
@@ -123,11 +123,11 @@
           </button>
         </div>
       </v-col>
-    </v-row>
+
     <br />
     <div class="submit" v-if="favorites.length <= 3">
       <v-btn rounded x-large @click="sendFavorites">추가</v-btn>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
