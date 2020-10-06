@@ -258,6 +258,7 @@ export default {
       } else if (!this.isTerm) {
         alert("약관을 읽어보시고, 동의란에 체크해주세요.");
       } else {
+        console.log(signupInfo);
         http.post("/users/signup/",signupInfo)
         .then(res => 
         { 
