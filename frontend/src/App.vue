@@ -73,9 +73,9 @@ export default {
 
   components: {},
 
-  beforeMount() {
-    console.log(store.state.isLogged);
-  },
+  // beforeMount() {
+  //   console.log(store.state.isLogged);
+  // },
   mounted() {},
   data: () => ({
     isFooter: true,
@@ -94,11 +94,11 @@ export default {
     },
     fetchuser() {
       store.dispatch("state");
-      console.log(store.state.userData.username);
+      // console.log(store.state.userData.username);
     },
     checkFooter(url) {
       let array = ["TonicDetail"];
-      console.log(url);
+      // console.log(url);
 
       let isFooter = true;
       array.map((path) => {
@@ -116,7 +116,7 @@ export default {
   },
   created() {
     let url = this.$route.name;
-    console.log(url);
+    // console.log(url);
     this.checkFooter(url);
     this.nname = this.$store.state.userInfo.username;
   },

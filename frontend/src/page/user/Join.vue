@@ -186,6 +186,7 @@
 
 <script>
 import axios from "axios";
+import swal from "sweetalert";
 const API_BASE_URL = "http://localhost:8000";
 // import * as EmailValidator from "email-validator";
 import store from "@/store.js";
@@ -197,7 +198,7 @@ export default {
       username: "",
       password1: "",
       password2: "",
-      gender: true,
+      gender: null,
       birthday: "",
       email: "",
       error: {
@@ -246,35 +247,55 @@ export default {
 
       var exptext = /^[A-Za-z0-9_,-]+@[A-Za-z0-9,-]+\.[A-Za-z0-9,-]+/;
       var passwordExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{8,}$/;
-      if (exptext.test(signupInfo.email) == false) {
+      if (signupInfo.email === "") {
+        swal("이메일을 입력해주세요");
+      } else if (exptext.test(signupInfo.email) === false) {
         //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
-        alert("이메일형식이 올바르지 않습니다.");
-      } else if (signupInfo.username.value == "") {
-        alert("이름을 입력해주세요");
-      } else if (signupInfo.password1 == "") {
-        alert("비밀번호를 입력해주세요");
-      } else if (passwordExp.test(signupInfo.password1) == false) {
-        alert("비밀번호 형식이 잘못되었습니다.");
-      } else if (signupInfo.password1 != signupInfo.password2) {
-        alert("비밀번호가 동일하지않습니다. 다시 입력해주세요.");
-      } else if (signupInfo.gender == "") {
-        alert("성별을 체크해주세요");
-      } else if (signupInfo.birth == null) {
-        alert("생일을 입력해주세요");
+        swal("이메일형식이 올바르지 않습니다.");
+      } else if (signupInfo.username === "") {
+        swal("이름을 입력해주세요");
+      } else if (signupInfo.password1 === "") {
+        swal("비밀번호를 입력해주세요");
+      } else if (passwordExp.test(signupInfo.password1) === false) {
+        swal("비밀번호 형식이 잘못되었습니다.");
+      } else if (signupInfo.password1 !== signupInfo.password2) {
+        swal("비밀번호가 동일하지않습니다. 다시 입력해주세요.");
+      } else if (signupInfo.gender === null) {
+        swal("성별을 체크해주세요");
+      } else if (signupInfo.birth === null) {
+        swal("생일을 입력해주세요");
       } else if (!this.isTerm) {
-        alert("약관을 읽어보시고, 동의란에 체크해주세요.");
+        swal("약관을 읽어보시고, 동의란에 체크해주세요.");
       } else {
-        axios.post(API_SIGNUP_URL, signupInfo).then((res) => {
-          this.setCookie(res.data.key);
-          store.dispatch("login", {
-            username: this.username,
-            email: this.email,
-            birth: this.date,
-            gender: this.gender,
+        axios
+          .post(API_SIGNUP_URL, signupInfo)
+          .then((res) => {
+            this.setCookie(res.data.key);
+            store.dispatch("login", {
+              username: this.username,
+              email: this.email,
+              birth: this.date,
+              gender: this.gender,
+            });
+            this.$router.push("/user/favorites");
+            swal({
+              title: "회원가입이 완료되었습니다.",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            if (err.response.data.username) {
+              swal("아이디 : " + err.response.data.username);
+            } else if (err.response.data.password) {
+              swal("비밀번호 : " + err.response.data.password);
+            } else if (err.response.data.password1) {
+              swal("비밀번호 : " + err.response.data.password1);
+            } else if (err.response.data.password2) {
+              swal("비밀번호 확인 : " + err.response.data.password2);
+            } else if (err.response.data.non_field_errors) {
+              swal("" + err.response.data.non_field_errors);
+            }
           });
-          this.$router.push("/user/favorites");
-          alert("회원가입이 완료되었습니다.");
-        });
       }
     },
     emailCheck() {
