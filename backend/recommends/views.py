@@ -56,6 +56,8 @@ def get_recommend_supplementList(request):
 
     cf_predictions = []
     for i, prediction in predictions.iterrows():
+        if i == 10:
+            break
         supplement = get_object_or_404(Supplement, pk=prediction['id'])
         cf_predictions.append(supplement)
 
@@ -101,12 +103,13 @@ def get_recommend_functional(request):
         if recommends.empty:
             continue
 
-        for recommend in recommends.iterrows():
-            print(recommend[1]['id'])
+        for i, recommend in recommends.iterrows():
+            # print(recommend[1]['id'])
+            if i == 10:
+                break
             supplement = get_object_or_404(Supplement, pk=recommend[1]['id'])
             res.append(supplement)
         data[interest['name']] = SupplementListSerializer(res, many=True).data
-    print(data)
     return Response(data)
 
 
