@@ -1,155 +1,218 @@
 <template>
-    <div>
-        <div class="checkbox">
-            <!-- <p>{{checkList}}</p> -->
-            <p>체크박스</p>
-            {{checkList}}
-            <v-row justify="space-around" class="checkList">
-                <v-col>
-                    <v-checkbox v-model="checkList" value="여성" label="여성"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="남성" label="남성"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="어린이" label="어린이"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="노인" label="노인"></v-checkbox>
-                </v-col>
-                <v-col>
-                    <v-checkbox v-model="checkList" value="혈관" label="혈관"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="혈당" label="혈당"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="면역" label="면역"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="피로감" label="피로감"></v-checkbox>
-                </v-col>
-                <v-col>
-                    <v-checkbox v-model="checkList" value="기억력" label="기억력"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="운동" label="운동"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="피부" label="피부"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="수면" label="수면"></v-checkbox>
-                </v-col>
-                <v-col>
-                    <v-checkbox v-model="checkList" value="간" label="간"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="위" label="위"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="장" label="장"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="신장" label="신장"></v-checkbox>
-                </v-col>
-                <v-col>
-                    <v-checkbox v-model="checkList" value="눈" label="눈"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="코" label="코"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="치아" label="치아"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="뼈" label="뼈"></v-checkbox>
-                </v-col>
-                <v-col>
-                    <v-checkbox v-model="checkList" value="체지방" label="체지방"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="신진대사" label="신진대사"></v-checkbox>
-                    <v-checkbox v-model="checkList" value="갑상선" label="갑상선"></v-checkbox>
-                </v-col>
-            </v-row>
-        </div>
-        <br>
-        <hr>
-        <div class="d-flex" style="width:60%; margin:auto; padding:60px; padding-top:15vh;">
-            <div class="flex">
-            <v-text-field
-                v-model="search"
-                class="p-2 d-flex"
-                append-icon="mdi-magnify"
-                label="Search"
-                single-line
-                hide-details
-            ></v-text-field>
+  <div>
+    <br />
+    <h3>{{ this.$store.state.userInfo.username }}님을 위한 추천리스트</h3>
+    <br />
+    <hr />
+    <br />
+    <br />
+
+    <div
+      v-for="(sample, j) in functional"
+      :key="j"
+      style="width: 700px; height: 200px; margin: auto; margin-top: 10px"
+    >
+      <h3>
+        <b>{{ j }}</b
+        >을 위한 영양제
+      </h3>
+      <div style="border: solid 1px #dadada; height: 160px; margin-top: 10px">
+        <VueSlickCarousel
+          class="carouselContainer"
+          v-bind="carouselSettings"
+          style="
+            width: 400px;
+            height: 100px;
+            margin: 20px auto;
+            color: #black;
+            text-align: center;
+          "
+        >
+          <div v-for="(tonic, i) in sample" :key="i" style="height: 80px">
+            <div
+              style="
+                width: 45px;
+                height: 60px;
+                margin: auto;
+                text-align: center;
+              "
+            >
+              <v-img
+                :src="
+                  'https://firebasestorage.googleapis.com/v0/b/pillsogood-764c8.appspot.com/o/images%2F' +
+                  tonic.name +
+                  '_1.jpg?alt=media'
+                "
+                @error="imgUrlAlt()"
+                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                @click="goDetail(tonic)"
+              ></v-img>
             </div>
-            <v-row>
-            <v-col v-for="(sampletonic, i) in sampletonics" :key="i" cols="6" md="3" :search="search">
-                <v-card
-                @click="goDetail(sampletonic)"
-                style="width:200px; height:250px;"
-                :search="search"
-                >
-                <!-- <div "> -->
-                <v-img
-                    :src="sampletonic.src"
-                    style="width:200px; height:200px; margin:auto;"
-                    gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                ></v-img>
-                <!-- </div> -->
-                <hr />
-                <h4 style="text-align:center">{{sampletonic.name}}</h4>
-                </v-card>
-            </v-col>
-            </v-row>
-        </div>
-<div>
-
-</div>
-<div>
-
-
-</div>
-
-
+            <hr />
+            <h6 style="text-align: center">{{ tonic.name }}</h6>
+          </div>
+        </VueSlickCarousel>
+      </div>
     </div>
+
+    <h3 style="margin-top: 10px">
+      {{ this.$store.state.userInfo.username }}님과 유사한 사용자들이 찾는
+      영양제
+    </h3>
+    <div
+      v-for="l in relist"
+      :key="l"
+      style="
+        width: 700px;
+        height: 160px;
+        margin: auto;
+        border: solid 1px #dadada;
+        margin-top: 10px;
+      "
+    >
+      <VueSlickCarousel
+        class="carouselContainer"
+        v-bind="carouselSettings"
+        style="width: 400px; height: 100px; margin: 20px auto; color: #black"
+      >
+        <div v-for="(rtonic, k) in l" :key="k" style="height: 50px">
+          <div style="width: 45px; height: 60px; margin: auto">
+            <v-img
+              :src="
+                'https://firebasestorage.googleapis.com/v0/b/pillsogood-764c8.appspot.com/o/images%2F' +
+                rtonic.name +
+                '_1.jpg?alt=media'
+              "
+              @error="imgUrlAlt()"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              @click="goDetail(rtonic)"
+            ></v-img>
+          </div>
+          <hr />
+          <h6 style="text-align: center">{{ rtonic.name }}</h6>
+        </div>
+      </VueSlickCarousel>
+    </div>
+    <br /><br /><br />
+  </div>
 </template>
 <script>
-// import http from  "@/util/http-common";
-import '../../assets/css/recommend.scss'
-import simage1 from "../../assets/images/sample1.png";
-import simage2 from "../../assets/images/sample2.jpg";
-// import http from "@/util/http-common";
-// import axios from "axios";
-// const API_BASE_URL = "http://localhost:8000";
+import VueSlickCarousel from "vue-slick-carousel";
+import "vue-slick-carousel/dist/vue-slick-carousel.css";
+import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+import "../../assets/css/recommend.scss";
+import http from "@/util/http-common";
+import simage1 from "../../assets/images/noimage.gif";
+
 export default {
-    name: 'Recommend',
-    components: {
+  name: "Recommend",
+  components: { VueSlickCarousel },
+  created() {
+    this.recommends();
+    this.recommendsf();
+  },
+  data: () => ({
+    checkList: [],
+    relist: [],
+    fkey: [],
+    functional: [],
+    slickOptions: {
+      //  dots: true,
 
+      touchMove: true,
+      dotsClass: "slick-dots",
+      autoplay: true,
+      autoplaySpeed: 3000,
     },
-    data: () => ({
-        checkList : [],
-        sampletonics: [
-            {
-                id: 1,
-                name: "아이키커",
-                src: simage1,
-            },
-            {
-                id: 2,
-                name: "솔가 비타민 B",
-                src: simage2,
-            },
-            {
-                id: 3,
-                name: "솔가 비타민 C",
-                src: simage2,
-            },
-            {
-                id: 4,
-                name: "솔가 비타민 D",
-                src: simage2,
-            },
-            {
-                id: 5,
-                name: "솔가 비타민 E",
-                src: simage2,
-            },
-        ],
-    }),
-    methods: {
-        goDetail(sampletonic) {
-            this.$router.push(`/list/${sampletonic.id}/`);
+    carouselSettings: {
+      // "dots": true,
+      infinite: true,
+      initialSlide: 2,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      swipeToSlide: true,
+    },
+  }),
+  methods: {
+    goDetail(sampletonic) {
+      this.$router.push(`/list/${sampletonic.id}/`);
+    },
+    imgUrlAlt() {
+      event.target.src = simage1;
+    },
+    recommends() {
+      const config = {
+        headers: {
+          Authorization: `Token ${this.$cookies.get("auth-token")}`,
         },
-        // recommends() {
-           
-        // const config = {};
-        // http.get(API_RECOMMEND_LIST_URL, config)
-        //     .then((res) => {
-        //     // console.log(res.data);
+      };
+      http
+        .get("/recommends/", config)
+        .then((res) => {
+         
+          this.relist.push(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
 
-        // //   for (var i = 0; i < 10; i++) {
-        // //     this.tonics.push(res.data[i]);
-        // //   }
-        //   // console.log(this.tonics);
-        // })
-        // .catch((err) => {
-        //   console.error(err);
-        // });
-        // }
-        
-    }
-}
+    recommendsf() {
+      const config = {
+        headers: {
+          Authorization: `Token ${this.$cookies.get("auth-token")}`,
+        },
+      };
+      http
+        .get("/recommends/functional/", config)
+        .then((res) => {
+          this.functional = res.data;
+
+          
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+  },
+};
 </script>
+<style>
+.slick-prev:before {
+  color: black;
+}
+
+.slick-next:before {
+  color: black;
+}
+</style>
+<style scoped>
+.v-responsive__content {
+  height: 100px;
+  padding-bottom: 0px;
+}
+.v-responsive__sizer {
+  padding-bottom: 0px;
+}
+.v-image.v-responsive.theme--light {
+  height: 100px;
+  padding-bottom: 0px;
+}
+.v-image__image {
+  width: 100px;
+  height: 100px;
+}
+.v-image__image.v-image__image--cover {
+  width: 100px;
+  height: 100px;
+}
+.v-image__image--cover {
+  width: 100px;
+  height: 100px;
+}
+.v-image__placeholder {
+  width: 100px;
+  height: 100px;
+}
+</style>

@@ -22,31 +22,35 @@
         offset-y
       >
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            class="ma-2"
+          <v-btn 
+            
             v-bind="attrs"
             v-on="on"
+            style=""
             color="#eebb4d" 
           >
-            gd
-          </v-btn>
+            {{nname}}
+          </v-btn >
         </template>
-        <v-list>
+        <v-list >
           <v-list-item
-            v-for="(item, i) in items"
-            :key="i"
-            @click="() => {}"
           >
-            <v-list-item-title>{{ item.name }}</v-list-item-title>
+            <router-link to="/user/favorites" style="text-decoration:none">관심사 변경</router-link>
+            
+            
+          </v-list-item>
+          <v-list-item
+          >
+            <p @click="onLogout">로그아웃</p>
+            
+            
           </v-list-item>
         </v-list>
       </v-menu>
         
   
       </div>
-      <v-btn @click="onLogout" color="#eebb4d" elevation="0">
-          로그아웃
-        </v-btn>
+      
     </v-app-bar>
 
     <router-view />
@@ -92,6 +96,7 @@ export default {
   data: () => ({
     isFooter: true,
     items:[{name:"관심사 변경"},{} ],
+    nname:""
       
   }),
   methods: {
@@ -130,7 +135,7 @@ export default {
     let url = this.$route.name;
     console.log(url);
     this.checkFooter(url);
-    console.log(this.isFooter);
+    this.nname=this.$store.state.userInfo.username;
   },
 };
 </script>
