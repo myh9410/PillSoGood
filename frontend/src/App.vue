@@ -1,37 +1,78 @@
 <template>
   <div data-app id="app">
-    <v-app-bar color="#eebb4d" dense dark>
+    <v-app-bar color="#fbcb64" dense dark>
       <v-toolbar-title
         ><img
           class="logo"
+          style="padding: 20px"
           src="../src/assets/images/logo-black.png"
           @click="toHome"
       /></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn to="/list" color="#eebb4d" elevation="0"> 영양제 </v-btn>
+      <v-btn
+        to="/list"
+        style="font-weight: 600; font-size: 16px"
+        color="#fbcb64"
+        elevation="0"
+      >
+        영양제
+      </v-btn>
       <div v-if="!this.$store.state.isLogged">
-      <v-btn @click="needLogin()" color="#eebb4d" elevation="0"> 추천 </v-btn>
+        <v-btn
+          @click="needLogin()"
+          style="font-weight: 600; font-size: 16px"
+          color="#fbcb64"
+          elevation="0"
+        >
+          추천
+        </v-btn>
       </div>
       <div v-else>
-      <v-btn to="/recommend" color="#eebb4d" elevation="0"> 추천 </v-btn>
-        
+        <v-btn
+          to="/recommend"
+          style="font-weight: 600; font-size: 16px"
+          color="#fbcb64"
+          elevation="0"
+        >
+          추천
+        </v-btn>
       </div>
       <div v-if="!this.$store.state.isLogged">
-        <v-btn to="/user/login" color="#eebb4d" elevation="0"> 로그인 </v-btn>
+        <v-btn
+          to="/user/login"
+          style="font-weight: 600; font-size: 16px"
+          color="#fbcb64"
+          elevation="0"
+        >
+          로그인
+        </v-btn>
       </div>
       <div v-if="!this.$store.state.isLogged">
-        <v-btn to="/user/join" color="#eebb4d" elevation="0"> 회원가입 </v-btn>
+        <v-btn
+          to="/user/join"
+          style="font-weight: 600; font-size: 16px"
+          color="#fbcb64"
+          elevation="0"
+        >
+          회원가입
+        </v-btn>
       </div>
       <div v-else>
         <v-menu bottom offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn v-bind="attrs" v-on="on" style="" color="#eebb4d" elevation="0">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+              style="font-weight: 600; font-size: 16px"
+              color="#fbcb64"
+              elevation="0"
+            >
               {{ nname }}
             </v-btn>
           </template>
           <v-list>
             <v-list-item>
-              <router-link to="/user/favorites" style="text-decoration:none"
+              <router-link to="/user/favorites" style="text-decoration: none"
                 >관심사 변경</router-link
               >
             </v-list-item>
@@ -51,13 +92,31 @@
           <img src="../src/assets/images/logo-vertical-black.png" />
         </div>
         <div class="right">
-          <ul class="comp-link">
-            <li><a href="/">홈으로</a></li>
-            <li><a href="/user/join">회원가입</a></li>
-            <li><a v-if="this.$store.state.isLogged" href="/recommend">추천</a></li>
-            <li><a v-if="!this.$store.state.isLogged" style="cursor:pointer;" @click="needLogin()">추천</a></li>
-            <li><a href="/list">영양제</a></li>
+          <!-- <v-contatiner> -->
+          <ul style="display: flex" class="comp-link">
+            <v-row>
+              <li><a href="/">홈으로</a></li>
+            </v-row>
+            <v-row>
+              <li><a href="/user/join">회원가입</a></li>
+            </v-row>
+            <v-row>
+              <li>
+                <a v-if="this.$store.state.isLogged" href="/recommend">추천</a>
+                <a
+                  v-if="!this.$store.state.isLogged"
+                  style="cursor: pointer"
+                  @click="needLogin()"
+                  >추천</a
+                >
+              </li>
+            </v-row>
+
+            <v-row>
+              <li><a href="/list">영양제</a></li>
+            </v-row>
           </ul>
+          <!-- </v-contatiner> -->
           <div class="col2">
             SSAFY 506 Pill So Good 팀 <br />
             류승민, 김민재, 문용호, 배민규, 이규진 <br />
@@ -111,15 +170,15 @@ export default {
     },
     needLogin() {
       swal({
-            title: "로그인이 필요한 서비스입니다!",
-            icon: "error",
-          });
-    }
+        title: "로그인이 필요한 서비스입니다!",
+        icon: "error",
+      });
+    },
   },
   watch: {
     $route(to) {
       this.checkFooter(to.name);
-    }
+    },
   },
   created() {
     let url = this.$route.name;
@@ -128,10 +187,10 @@ export default {
     // this.nname = this.$store.state.userInfo.username;
   },
   computed: {
-    nname () {
+    nname() {
       return this.$store.state.userInfo.username;
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
@@ -139,13 +198,13 @@ p.logout:hover {
   cursor: pointer;
 }
 @font-face {
-  font-family: "Bazzi";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff")
+  font-family: "BBTreeGR";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGR.woff")
     format("woff");
   font-weight: normal;
   font-style: normal;
 }
 * {
-  font-family: "Bazzi";
+  font-family: "BBTreeGR";
 }
 </style>

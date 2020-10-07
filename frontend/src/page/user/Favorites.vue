@@ -1,9 +1,13 @@
 <template>
-  <div class="form">
-    <h2>평소 관심있는 건강 항목을 선택해주세요!</h2>
-    <h3>{{ user }}님을 위한 맞춤 추천에 도움이 됩니다</h3>
+  <div style="text-align: center; padding-top: 10vh" class="form">
+    <h1>평소 관심있는 건강 항목을 선택해주세요!</h1>
+    <br />
+    <br />
+    <h3>{{ user }}님을 위한 맞춤 추천에 도움 이 됩니다</h3>
     <h4>최대 3개까지 선택할 수 있어요!</h4>
     <h5>(선택하지 않으셔도 됩니다!)</h5>
+    <br />
+    <br />
     <v-row justify="space-around" class="checkList">
       <v-col>
         <div
@@ -93,7 +97,18 @@
     </v-row>
     <br />
     <div class="submit" v-if="favorites.length <= 3">
-      <v-btn rounded x-large @click="sendFavorites">등록</v-btn>
+      <v-btn
+        style="
+          width: 200px;
+          background-color: #5aa6ee;
+          color: white;
+          font-size: 20px;
+        "
+        rounded
+        x-large
+        @click="sendFavorites"
+        >등록</v-btn
+      >
     </div>
 
     <!-- <v-col>

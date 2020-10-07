@@ -1,19 +1,15 @@
 <template>
-  <div>
+  <div style="text-align: center; padding-top: 10vh">
     <div style="width: 100vw; height: 100vh; padding: 10px; margin: 0 auto">
-      <div
-        class="row "
-        style="margin: auto; width: 60%"
-      >
+      <div class="row" style="margin: auto; width: 60%">
         <div
           class="col-md-5"
           style="
             text-align: center;
             margin-top: auto;
             margin-bottom: auto;
-            
-            width:50%;
-            
+
+            width: 50%;
           "
         >
           <div class="center">
@@ -31,10 +27,10 @@
                     :src="slide.src"
                     @error="imgUrlAlt(slide)"
                     style="
+                      border-radius: 5px;
                       text-align: center;
                       margin-top: auto;
                       margin-bottom: auto;
-                      margin-left: 50px;
                       padding: 0px;
                       width: 100%;
                       height: 100%;
@@ -47,21 +43,15 @@
         </div>
         <div
           class="col-md-5"
-          style="
-            width: 50%;
-            text-align: center;
-            margin-top: 0;
-            margin: auto;
- 
-          "
+          style="width: 50%; text-align: center; margin-top: 0; margin: auto"
         >
           <h1>{{ tonic.name }}</h1>
           <!-- <p>{{tonic}}</p> -->
 
-          <table style="margin-top: 10px; text-align: left;">
-            <tr style="height: 50px;">
-              <th style="width:100px; ">제조사</th>
-              <td >{{ tonic.manufacturer }}</td>
+          <table style="margin-top: 10px; text-align: left">
+            <tr style="height: 50px">
+              <th style="width: 100px">제조사</th>
+              <td>{{ tonic.manufacturer }}</td>
             </tr>
             <tr style="height: 50px">
               <th>타입</th>
@@ -104,7 +94,7 @@
             <tr>
               <th style="padding-top: 0px">주의사항</th>
               <td>
-                <v-row style="margin-left: 0px;">
+                <v-row style="margin-left: 0px">
                   <div v-for="(nutrient, i) in tonic.nutrients" :key="i">
                     <p v-if="i == 0">{{ nutrient.precaution }}</p>
                     <p v-if="i != 0">, {{ nutrient.precaution }}</p>
@@ -134,7 +124,7 @@ import simage1 from "../../assets/images/noimage.gif";
 import Review from "../../components/post/Review";
 
 // import axios from "axios";
-const API_BASE_URL = "http://localhost:8000";
+const API_BASE_URL = "http://j3a506.p.ssafy.io:8000";
 export default {
   data() {
     return {
@@ -191,7 +181,6 @@ export default {
         })
         .catch((err) => {
           console.error(err);
-          
         });
       const cconfig = {
         apiKey: "AIzaSyB5trzHsemzlHfcwXGHXANsnRzKHSpM8Ag",

@@ -1,14 +1,13 @@
 <template>
   <div data-app>
-    <h1 style="text-align:left">리뷰</h1>
+    <h1 style="text-align: left">리뷰</h1>
     <br />
     <star-rating v-model="ReviewInfo.rank" />
 
     <br />
     <input
       v-model="ReviewInfo.title"
-      style="border: solid 1px #dadada; width: 400px; float:left;"
-
+      style="border: solid 1px #dadada; width: 400px; float: left"
       type="text"
       placeholder="제목"
     />
@@ -16,7 +15,7 @@
       v-model="ReviewInfo.content"
       class="text-sm-left"
       type="text"
-      style="border: solid 1px #dadada; height: 200px"
+      style="border: solid 1px #dadada; height: 100px"
       placeholder="한줄평 남기기"
     />
     <button @click="createReview" style="border: solid 1px #dadada" class="btn">
@@ -25,7 +24,7 @@
     <table class="table">
       <tbody>
         <div v-for="review in Review_list" :key="review.id">
-          <div style="background-color: #dadada; width: 59vw; text-align:left;">
+          <div style="background-color: #dadada; width: 59vw; text-align: left">
             <div style="width: 200px">
               <h3 style="float: left; margin-right: 5px">
                 {{ review.user.username }}님
@@ -41,12 +40,19 @@
               </div>
               <time :datetime="review.created_at" />
             </div>
-            <br/>
+            <br />
 
-            <h3 style="text-align:left">{{ review.title }}</h3>
+            <h3 style="text-align: left">{{ review.title }}</h3>
             <p>{{ review.content }}</p>
-            <div v-if="review.user.username== nname" style="width: 300px; text-align: center">
-              <p style="width: 30%; cursor:pointer;" class="btn" @click.stop="dialog = true">
+            <div
+              v-if="review.user.username == nname"
+              style="width: 300px; text-align: center"
+            >
+              <p
+                style="width: 30%; cursor: pointer"
+                class="btn"
+                @click.stop="dialog = true"
+              >
                 수정
               </p>
               <v-dialog v-model="dialog" max-width="290">
@@ -79,7 +85,11 @@
                 </v-card>
               </v-dialog>
 
-              <p @click="deleteReview(review)" style="width: 30%; cursor:pointer;" class="btn">
+              <p
+                @click="deleteReview(review)"
+                style="width: 30%; cursor: pointer"
+                class="btn"
+              >
                 삭제
               </p>
             </div>
@@ -100,7 +110,7 @@ import http from "@/util/http-common";
 export default {
   data() {
     return {
-      nname:"",
+      nname: "",
       ReviewInfo: {
         title: "",
         rank: "",
@@ -122,13 +132,13 @@ export default {
 
   methods: {
     createReview() {
-     const config = {
+      const config = {
         headers: {
           Authorization: `Token ${this.$cookies.get("auth-token")}`,
         },
       };
       http
-        .post( `/reviews/${this.params}/`, this.ReviewInfo, config)
+        .post(`/reviews/${this.params}/`, this.ReviewInfo, config)
         .then(() => {
           console.log(this.ReviewInfo);
           this.ReviewInfo.title = "";
@@ -148,14 +158,13 @@ export default {
           Authorization: `Token ${this.$cookies.get("auth-token")}`,
         },
       };
-      http.delete( `/reviews/${review.id}/`, config).then(() => {
+      http.delete(`/reviews/${review.id}/`, config).then(() => {
         console.log(review);
 
         this.fetchReviewList();
       });
     },
     updateReview(review) {
-
       const config = {
         headers: {
           Authorization: `Token ${this.$cookies.get("auth-token")}`,
@@ -190,9 +199,8 @@ export default {
   },
   created() {
     this.fetchReviewList();
- 
-    this.nname=store.state.userInfo.username
 
+    this.nname = store.state.userInfo.username;
   },
 };
 </script>

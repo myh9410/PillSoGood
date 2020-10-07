@@ -1,7 +1,8 @@
 //Vueper Slide
 .vueperslide {
-    background: linear-gradient(-45deg,  #eebb4d, #e3dfc8, #f5f1da, #eebb4d);
-
+    // background: linear-gradient(-45deg, #eebb4d, #e3dfc8, #f5f1da, #eebb4d);
+    background-image: url("../images/review.jpg");
+    // opacity: 0.5;
     &__title {
         position: absolute;
         top: 10px;
@@ -9,35 +10,41 @@
         z-index: 10;
         font-size: 20px;
         opacity: 0.6;
+        margin-top: 10px;
+        font-weight: 900;
     }
     &__content {
-        font-size: 36px;
+        font-size: 30px;
+        font-weight: 900;
     }
 }
-  
+.vueperslides--parallax {
+    height: 22rem;
+}
+
 .vueperslides__progress {
-    background: rgba(0,0,0,0.25);
-    color: #eebb4d;
+    background: rgba(0, 0, 0, 0.25);
+    color: #b9d87d;
 }
 
 .vueperslides__arrow {
-    color: black;
+    color: #7b8469;
 }
 
-.vueperslides__arrow svg{
+.vueperslides__arrow svg {
     stroke-width: 2;
 }
 
 .vueperslide__image {
-    height: 300px;
-    width: 300px;
+    height: 450px;
+    width: 450px;
 }
 
 .explanation {
     // border: 1px solid black;
     width: 70%;
-    height : 25.5em;
-    margin:auto;
+    height: 25.5em;
+    margin: auto;
     margin-top: 20px;
     margin-bottom: 10px;
     background-color: #f5f1da;
@@ -71,13 +78,13 @@
     margin-bottom: 50px;
 }
 
-
 .buttons {
     margin-top: 30px;
     margin-left: 30px;
 }
 
-.buttons a:link, a:visited {
+.buttons a:link,
+a:visited {
     // background-color: #eebb4d;
     border: 1px solid #eebb4d;
     margin: 1%;
@@ -91,20 +98,21 @@
     display: inline-block;
 }
 
-.buttons a:hover, a:active {
+.buttons a:hover,
+a:active {
     color: white;
     background-color: #eebb4d;
 }
 
 .pillList {
-    margin:auto;
+    margin: auto;
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .recommend {
-    margin:auto;
+    margin: auto;
     margin-left: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -112,16 +120,16 @@
 
 .description1 {
     margin: 30px;
-    margin-top:5%;
+    margin-top: 5%;
     height: 30%;
-  }
+}
 
 .description1 p {
     padding-top: 20px;
     font-weight: bold;
     font-size: 48px;
 }
-.description2 p{
+.description2 p {
     margin-top: 2.5em;
     margin-left: 3em;
     padding-top: 5px;
@@ -138,14 +146,19 @@
 .home section {
     width: 70%;
     margin: auto;
-    background-color:#e3dfc8;
+    background-color: #eceadf;
 }
 
 .home section .catchphrase {
     text-align: center;
 }
 
-
+.home .mainBanner {
+    background-image: url("../images/banner.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    // opacity: 0.8;
+}
 
 /*footer*/
 
@@ -175,7 +188,7 @@ footer .footer-container .col2 {
     margin-left: 100px;
 }
 
-footer img{
+footer img {
     float: left;
     width: 150px;
     height: 150px;
@@ -208,5 +221,5 @@ footer .right li {
 
 footer a {
     text-decoration: none;
-    color: black
+    color: black;
 }

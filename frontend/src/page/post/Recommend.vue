@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <div style="padding-top: 10vh">
+    <h1 style="text-align: center">
+      {{ this.$store.state.userInfo.username }}님을 위한 추천리스트
+    </h1>
     <br />
-    <h3>{{ this.$store.state.userInfo.username }}님을 위한 추천리스트</h3>
-    <br />
-    <hr />
+
     <br />
     <br />
 
@@ -150,7 +151,6 @@ export default {
       http
         .get("/recommends/", config)
         .then((res) => {
-         
           this.relist.push(res.data);
         })
         .catch((err) => {
@@ -168,8 +168,6 @@ export default {
         .get("/recommends/functional/", config)
         .then((res) => {
           this.functional = res.data;
-
-          
         })
         .catch((err) => {
           console.error(err);
