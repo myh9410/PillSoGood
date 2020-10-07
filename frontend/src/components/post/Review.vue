@@ -45,8 +45,8 @@
 
             <h3 style="text-align:left">{{ review.title }}</h3>
             <p>{{ review.content }}</p>
-            <div style="width: 300px; text-align: center">
-              <p style="width: 30%" class="btn" @click.stop="dialog = true">
+            <div v-if="review.user.username== nname" style="width: 300px; text-align: center">
+              <p style="width: 30%; cursor:pointer;" class="btn" @click.stop="dialog = true">
                 수정
               </p>
               <v-dialog v-model="dialog" max-width="290">
@@ -79,7 +79,7 @@
                 </v-card>
               </v-dialog>
 
-              <p @click="deleteReview(review)" style="width: 30%" class="btn">
+              <p @click="deleteReview(review)" style="width: 30%; cursor:pointer;" class="btn">
                 삭제
               </p>
             </div>
@@ -100,6 +100,7 @@ import http from "@/util/http-common";
 export default {
   data() {
     return {
+      nname:"",
       ReviewInfo: {
         title: "",
         rank: "",
@@ -189,7 +190,9 @@ export default {
   },
   created() {
     this.fetchReviewList();
-    console.log(store.state);
+ 
+    this.nname=store.state.userInfo.username
+
   },
 };
 </script>

@@ -54,7 +54,8 @@
           <ul class="comp-link">
             <li><a href="/">홈으로</a></li>
             <li><a href="/user/join">회원가입</a></li>
-            <li><a href="/recommend">추천</a></li>
+            <li><a v-if="this.$store.state.isLogged" href="/recommend">추천</a></li>
+            <li><a v-if="!this.$store.state.isLogged" style="cursor:pointer;" @click="needLogin()">추천</a></li>
             <li><a href="/list">영양제</a></li>
           </ul>
           <div class="col2">
