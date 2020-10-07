@@ -191,6 +191,7 @@ export default {
         })
         .catch((err) => {
           console.error(err);
+          
         });
       const cconfig = {
         apiKey: "AIzaSyB5trzHsemzlHfcwXGHXANsnRzKHSpM8Ag",
