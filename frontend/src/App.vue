@@ -9,7 +9,13 @@
       /></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn to="/list" color="#eebb4d" elevation="0"> 영양제 </v-btn>
+      <div v-if="!this.$store.state.isLogged">
+      <v-btn @click="needLogin()" color="#eebb4d" elevation="0"> 추천 </v-btn>
+      </div>
+      <div v-else>
       <v-btn to="/recommend" color="#eebb4d" elevation="0"> 추천 </v-btn>
+        
+      </div>
       <div v-if="!this.$store.state.isLogged">
         <v-btn to="/user/login" color="#eebb4d" elevation="0"> 로그인 </v-btn>
       </div>
@@ -67,7 +73,7 @@
 import "../src/assets/css/home.scss";
 import store from "@/store.js";
 // import http from '@/util/http-common'
-
+import swal from "sweetalert";
 export default {
   name: "app",
 
@@ -102,6 +108,12 @@ export default {
       });
       this.isFooter = isFooter;
     },
+    needLogin() {
+      swal({
+            title: "로그인이 필요한 서비스입니다!",
+            icon: "error",
+          });
+    }
   },
   watch: {
     $route(to) {

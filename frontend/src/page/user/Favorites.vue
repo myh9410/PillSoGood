@@ -364,6 +364,7 @@ export default {
         )
         .then(() => {
           // console.log(this.$store.state.userInfo);
+          swal("관심증상이 등록되었습니다");
           this.$router.push("/");
         });
     },
