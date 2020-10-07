@@ -1,12 +1,14 @@
 <template>
   <div data-app>
-    <h1>리뷰</h1>
+    <h1 style="text-align:left">리뷰</h1>
+    <br />
     <star-rating v-model="ReviewInfo.rank" />
 
     <br />
     <input
       v-model="ReviewInfo.title"
-      style="border: solid 1px #dadada; width: 400px"
+      style="border: solid 1px #dadada; width: 400px; float:left;"
+
       type="text"
       placeholder="제목"
     />
@@ -23,7 +25,7 @@
     <table class="table">
       <tbody>
         <div v-for="review in Review_list" :key="review.id">
-          <div style="background-color: #dadada; width: 79vw">
+          <div style="background-color: #dadada; width: 59vw; text-align:left;">
             <div style="width: 200px">
               <h3 style="float: left; margin-right: 5px">
                 {{ review.user.username }}님
