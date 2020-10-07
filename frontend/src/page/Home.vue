@@ -95,7 +95,11 @@ export default {
     }
     http.get('reviews/')
     .then(res => {
-      this.reviews = res.data;
+      if (res.data.length > 10) {
+        this.reviews = res.data.splice(0,10);
+      } else {
+        this.reviews = res.data;
+      }
     });
   },
   data: ()=> ({
