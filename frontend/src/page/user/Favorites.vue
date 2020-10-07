@@ -3,6 +3,7 @@
     <h2>평소 관심있는 건강 항목을 선택해주세요!</h2>
     <h3>{{ user }}님을 위한 맞춤 추천에 도움이 됩니다</h3>
     <h4>최대 3개까지 선택할 수 있어요!</h4>
+    <h5>(선택하지 않으셔도 됩니다!)</h5>
     <v-row justify="space-around" class="checkList">
       <v-col>
         <div
@@ -92,7 +93,7 @@
     </v-row>
     <br />
     <div class="submit" v-if="favorites.length <= 3">
-      <v-btn rounded x-large @click="sendFavorites">추가</v-btn>
+      <v-btn rounded x-large @click="sendFavorites">등록</v-btn>
     </div>
 
     <!-- <v-col>

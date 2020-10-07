@@ -1,6 +1,5 @@
 <template>
   <div data-app>
-    >
     <h1>리뷰</h1>
     <star-rating v-model="ReviewInfo.rank" />
 

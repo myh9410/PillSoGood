@@ -17,15 +17,6 @@
           </h4>
         </div>
         <div>
-          <input
-            v-model="tonicName"
-            class="p-2 d-flex"
-            append-icon="mdi-magnify"
-            hide-details
-            placeholder="검색"
-            style="border: solid 1px #dadada"
-          />  
-          <!-- 검색창이 빈칸일떄 -->
           <div>
 
           <v-row>
@@ -58,14 +49,8 @@
       </div>
     </section>
 
-    <div class="btn-cover d-flex justify-content-center align-items-center">
-      <button
-        :disabled="pageNum >= 1000"
-        @click="nextPage"
-        class="page-btn btn btn-info m-2"
-      >
-        <p>더보기</p>
-      </button>
+    <div class="btn-cover d-flex justify-content-center align-items-center" style="margin:auto; text-align:center">
+      <v-btn rounded x-large @click="nextPage">더보기</v-btn>
     </div>
 
    

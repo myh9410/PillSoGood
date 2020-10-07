@@ -49,15 +49,8 @@
         />
       </div>
       <div class="snsLogin">
-        <a href="http://localhost:8000/accounts/google/login"
-          ><img src="../../assets/images/google.png"
-        /></a>
-        <a href="http://localhost:8000/accounts/kakao/login"
-          ><img src="../../assets/images/kakao.png"
-        /></a>
-        <a href="http://localhost:8000/accounts/naver/login"
-          ><img src="../../assets/images/naver.png"
-        /></a>
+        <img src="../../assets/images/google.png" @click="onGoogle" />
+        <img src="../../assets/images/kakao.png" @click="onKakao" />
       </div>
       <br />
       <br />
@@ -174,16 +167,130 @@ export default {
         });
     },
     onGoogle() {
-      alert("구글");
-      // console.log(config.googleAccessToken.access_token);
-      // console.log(config.googleAccessToken.id_token);
-      // http.post('accounts/google/',{
-      //   access_token : config.googleAccessToken.access_token,
-      //   id_token : config.googleAccessToken.id_token
-      // }).then( res => {
-      //   console.log(res.data);
-      // })
-      this.$router.push("http://127.0.0.1:8000/accounts/google/login");
+      this.$gAuth.signIn().then(GoogleUser => {
+        var gProfile = GoogleUser.getBasicProfile();
+        var gNickname = gProfile.getName();
+        var gEmail = gProfile.getEmail();
+        http.post("/accounts/check", {
+          email : gEmail,
+          nickname : gNickname,
+          password : "",
+        }).then(data => {
+          if(data.data.state=='login'){
+            http.post("/users/login/", {
+                email: gEmail,
+                password: gEmail,
+                }).then((res) => {
+                  this.setCookie(res.data.key)
+                  store.dispatch("login", res.data.user);
+                  swal({
+                    title: "환영합니다!",
+                    icon: "success",
+                  });
+                  this.$router.push("/");
+                })
+                .catch(() => {
+                  swal({
+                    title: "로그인에 실패하였습니다!",
+                    text: "다시 시도해주세요",
+                    icon: "error",
+                  });
+                });
+          } else{
+            http.post('/users/signup/',{
+                  username: gNickname,
+                  email: gEmail,
+                  password1: gEmail,
+                  password2: gEmail,
+
+                  birth: '2010-10-20',
+                  gender: true,
+            }).then(res => 
+              { 
+                this.setCookie(res.data.key);
+                store.dispatch("login", {
+                    username : gNickname,
+                    email : gEmail,
+                });
+                this.$router.push("/user/favorites");
+                swal({
+                  title: "회원가입이 완료되었습니다.",
+                  icon: "success",
+                });
+            })
+          }
+        })
+      })
+    },
+    onKakao() {
+      window.Kakao.Auth.login({
+        scope : 'account_email, profile',
+        success: this.GetMe,
+      });
+    },
+    GetMe(){
+      window.Kakao.API.request({
+        url: '/v2/user/me',
+        success : res => {
+          const kakao_account = res.kakao_account;
+          const userInfo = {
+            nickname : kakao_account.profile.nickname,
+            email : kakao_account.email
+          }
+          http.post('/accounts/check',{
+            email : userInfo.email,
+            nickname : userInfo.nickname
+          }).then(data => {
+            if(data.data.state=='login'){
+              http.post("/users/login/", {
+                email: userInfo.email,
+                password: userInfo.email,
+              }).then((res) => {
+                this.setCookie(res.data.key)
+                store.dispatch("login", res.data.user);
+                swal({
+                    title: "환영합니다!",
+                    icon: "success",
+                });
+                this.$router.push("/");
+              }).catch(() => {
+                swal({
+                  title: "로그인에 실패하였습니다!",
+                  text: "다시 시도해주세요",
+                  icon: "error",
+                });
+              });
+            } else{
+              http.post('/users/signup/',{
+                username: userInfo.nickname,
+                email: userInfo.email,
+                password1: userInfo.email,
+                password2: userInfo.email,
+                birth: '2010-10-20',
+                gender: true,
+              }).then(res => { 
+                this.setCookie(res.data.key);
+                store.dispatch("login", {
+                    username : userInfo.nickname,
+                    email : userInfo.email,
+                });
+                this.$router.push("/user/favorites");
+                swal({
+                  title: "회원가입이 완료되었습니다.",
+                  icon: "success",
+                });
+              }).catch((e) => {
+                console.log(e.response);
+                  swal({
+                    title: "회원가입에 실패하였습니다! 이미 가입하셨는지 확인해주세요!",
+                    text: "다시 시도해주세요",
+                    icon: "error",
+                  });
+              });
+            }
+          })
+        }
+      })
     },
   },
 };

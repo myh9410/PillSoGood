@@ -25,7 +25,7 @@ SECRET_KEY = '$&fd%zmtk5)m(#2ourz88$ra5^mn%41-2-7k=ss6)_&-8w(#%&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['j3a506.p.ssafy.io', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -178,6 +178,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_UNIQUE_USERNAME = False
 
 '''
 # 이메일 인증

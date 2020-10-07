@@ -19,7 +19,7 @@
       <div v-else>
         <v-menu bottom offset-y>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn v-bind="attrs" v-on="on" style="" color="#eebb4d">
+            <v-btn v-bind="attrs" v-on="on" style="" color="#eebb4d" elevation="0">
               {{ nname }}
             </v-btn>
           </template>
@@ -72,15 +72,9 @@ export default {
   name: "app",
 
   components: {},
-
-  // beforeMount() {
-  //   console.log(store.state.isLogged);
-  // },
-  mounted() {},
   data: () => ({
     isFooter: true,
     items: [{ name: "관심사 변경" }, {}],
-    nname: "",
   }),
   methods: {
     toHome() {
@@ -112,18 +106,33 @@ export default {
   watch: {
     $route(to) {
       this.checkFooter(to.name);
-    },
+    }
   },
   created() {
     let url = this.$route.name;
     // console.log(url);
     this.checkFooter(url);
-    this.nname = this.$store.state.userInfo.username;
+    // this.nname = this.$store.state.userInfo.username;
   },
+  computed: {
+    nname () {
+      return this.$store.state.userInfo.username;
+    }
+  }
 };
 </script>
 <style scoped>
 p.logout:hover {
   cursor: pointer;
+}
+@font-face {
+  font-family: "Bazzi";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  font-family: "Bazzi";
 }
 </style>
