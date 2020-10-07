@@ -46,8 +46,8 @@
     </section>
     <br>
     <div class="products-login" v-if="this.$store.state.isLogged">
-      <vueper-slides fade :touchable="false" autoplay arrows-outside fractions progress>
-        <vueper-slide v-for="(sampletonic, i) in sampletonics" :key="i" :title="sampletonic.name" :image="sampletonic.src" />
+      <vueper-slides fade :touchable="false" autoplay arrows-outside fractions progress :parallax="parallax" :parallax-fixed-content="parallaxFixedContent">
+        <vueper-slide v-for="recommend in recommends" :key="recommend.id" :title="recommend.name" :image="recommend.src" style="margin : auto; width : 30%; height : 50%"/>
       </vueper-slides>
     </div>
     <div class="products-logout" v-else>
@@ -70,8 +70,6 @@
 import 'vueperslides/dist/vueperslides.css'
 import '../assets/css/home.scss'
 import { VueperSlides, VueperSlide } from 'vueperslides'
-import simage1 from "../assets/images/sample1.png";
-import simage2 from "../assets/images/sample2.jpg";
 import http from  "@/util/http-common"
 // @ is an alias to /src
 
@@ -90,7 +88,14 @@ export default {
       };
       http.get('recommends/', config)
       .then(res => {
-        console.log(res);
+        if (res.data.length > 10) {
+          this.recommends = res.data.splice(0,10);
+        } else {
+            this.recommends = res.data;
+        }
+        for (let i = 0; i < this.recommends.length; i++){
+          this.recommends[i].src = "https://firebasestorage.googleapis.com/v0/b/pillsogood-764c8.appspot.com/o/images%2F" + this.recommends[i].name +"_1.jpg?alt=media";
+        }
       });
     }
     http.get('reviews/')
@@ -103,34 +108,10 @@ export default {
     });
   },
   data: ()=> ({
-    sampletonics: [
-      {
-        id: 1,
-        name: "아이키커",
-        src: simage1,
-      },
-      {
-        id: 2,
-        name: "솔가 비타민 B",
-        src: simage2,
-      },
-      {
-        id: 3,
-        name: "솔가 비타민 C",
-        src: simage2,
-      },
-      {
-        id: 4,
-        name: "솔가 비타민 D",
-        src: simage2,
-      },
-      {
-        id: 5,
-        name: "솔가 비타민 E",
-        src: simage2,
-      },
-    ],
-    reviews : []
+    recommends : [],
+    reviews : [],
+    parallax: 1,
+    parallaxFixedContent : false
   }),
   methods : {
     toLogin() {
