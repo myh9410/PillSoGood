@@ -90,6 +90,7 @@ export default {
     onLogout() {
       // http.post('users/logout/');
       store.dispatch("logout");
+      this.$cookies.remove('auth-token')
       if (window.location.pathname == "/") this.$router.go(0);
       else this.$router.push({ name: "Home" });
     },
