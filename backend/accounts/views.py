@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.views import View
 
 from rest_framework.views import APIView
@@ -31,3 +32,24 @@ class InterestView(APIView):
         return Response(status=400)
         # return Response(serializer.data)
 
+class DbcheckView(APIView):
+    def post(self, request):
+        useremail = request.data['email']
+        nickname= request.data['nickname']
+        print("useremail : ", useremail)
+        print("nickname : ",nickname)
+        try:
+            user = str(CustomUser.objects.get(email=useremail))
+        except Exception:
+            user= ""
+        print(user)
+        if nickname==user:
+            data={
+                "state":'login'
+            }
+            return Response(status=200,data=data)
+        else:
+            data={
+                "state":'signup'
+            }
+            return Response(status=200,data=data)

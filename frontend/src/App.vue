@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div data-app id="app">
     <v-app-bar color="#eebb4d" dense dark>
       <v-toolbar-title
         ><img
@@ -17,9 +17,23 @@
         <v-btn to="/user/join" color="#eebb4d" elevation="0"> 회원가입 </v-btn>
       </div>
       <div v-else>
-        <v-btn @click="onLogout" color="#eebb4d" elevation="0">
-          로그아웃
-        </v-btn>
+        <v-menu bottom offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn v-bind="attrs" v-on="on" style="" color="#eebb4d" elevation="0">
+              {{ nname }}
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item>
+              <router-link to="/user/favorites" style="text-decoration:none"
+                >관심사 변경</router-link
+              >
+            </v-list-item>
+            <v-list-item>
+              <p class="logout" @click="onLogout">로그아웃</p>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </div>
     </v-app-bar>
 
@@ -32,7 +46,7 @@
         </div>
         <div class="right">
           <ul class="comp-link">
-            <li><a href="/home">홈으로</a></li>
+            <li><a href="/">홈으로</a></li>
             <li><a href="/user/join">회원가입</a></li>
             <li><a href="/recommend">추천</a></li>
             <li><a href="/list">영양제</a></li>
@@ -58,13 +72,9 @@ export default {
   name: "app",
 
   components: {},
-
-  beforeMount() {
-    console.log(store.state.isLogged);
-  },
-  mounted() {},
   data: () => ({
     isFooter: true,
+    items: [{ name: "관심사 변경" }, {}],
   }),
   methods: {
     toHome() {
@@ -78,11 +88,11 @@ export default {
     },
     fetchuser() {
       store.dispatch("state");
-      console.log(store.state.userData.username);
+      // console.log(store.state.userData.username);
     },
     checkFooter(url) {
       let array = ["TonicDetail"];
-      console.log(url);
+      // console.log(url);
 
       let isFooter = true;
       array.map((path) => {
@@ -96,13 +106,33 @@ export default {
   watch: {
     $route(to) {
       this.checkFooter(to.name);
-    },
+    }
   },
   created() {
     let url = this.$route.name;
-    console.log(url);
+    // console.log(url);
     this.checkFooter(url);
-    console.log(this.isFooter);
+    // this.nname = this.$store.state.userInfo.username;
   },
+  computed: {
+    nname () {
+      return this.$store.state.userInfo.username;
+    }
+  }
 };
 </script>
+<style scoped>
+p.logout:hover {
+  cursor: pointer;
+}
+@font-face {
+  font-family: "Bazzi";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  font-family: "Bazzi";
+}
+</style>
