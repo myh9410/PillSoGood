@@ -14,7 +14,7 @@ from .serializers import ReviewSerializer, ReviewListSerializer
 
 @api_view(['GET'])
 def get_reviews(request):
-    reviews = Review.objects.order_by('-created_at')
+    reviews = Review.objects.order_by('-created_at')[:10]
     serializers = ReviewSerializer(reviews, many=True)
     return Response(serializers.data)
 
