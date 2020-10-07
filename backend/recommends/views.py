@@ -124,7 +124,7 @@ def get_recommend_functional(request):
             # print(recommend[1]['id'])
             if i == 10:
                 break
-            supplement = get_object_or_404(Supplement, pk=recommend[1]['id'])
+            supplement = get_object_or_404(Supplement, pk=recommend['id'])
             res.append(supplement)
         data[interest['name']] = SupplementListSerializer(res, many=True).data
     print(data)
