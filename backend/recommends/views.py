@@ -17,6 +17,19 @@ from django.http.response import JsonResponse
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_recommend_supplementList(request):
+    reviews = Review.objects.filter(user=request.user.id)
+    if len(reviews) == 0:
+        res = []
+        recommends = supplement_by_rank()
+
+        for i, recommend in recommends.iterrows():
+            print(recommend['id'])
+            if i == 10:
+                break
+            supplement = get_object_or_404(Supplement, pk=recommend['id'])
+            res.append(supplement)
+        serializers = SupplementListSerializer(res, many=True)
+        return Response(serializers.data)
     df_reviews = read_frame(Review.objects.all(), verbose=False)
 
     # 영양제 데이터프레임
@@ -68,6 +81,8 @@ def get_recommend_supplementList(request):
 
 # 리뷰 수가 적으면 추천이 제대로 안됨
 def collaboration_filtering(df_svd_preds, user_id, ori_supplements_df, ori_ranks_df, num_recommendations=10):
+    # print(df_svd_preds)
+    # print(user_id)
     user_row_number = user_id
     sorted_user_predictions = df_svd_preds.loc[user_row_number].sort_values(
         ascending=False)
@@ -98,9 +113,11 @@ def get_recommend_functional(request):
     data = {}
     # print(request.user.interests)
     for interest in request.user.interests.values():
+        print(interest)
         res = []
         recommends = supplement_by_functional(interest['id'])
         if recommends.empty:
+            data[interest['name']] = []
             continue
 
         for i, recommend in recommends.iterrows():
@@ -110,7 +127,31 @@ def get_recommend_functional(request):
             supplement = get_object_or_404(Supplement, pk=recommend[1]['id'])
             res.append(supplement)
         data[interest['name']] = SupplementListSerializer(res, many=True).data
+    print(data)
     return Response(data)
+
+
+def supplement_by_rank():
+    df_supplements = read_frame(Supplement.objects.all(), verbose=False)
+    df_reviews = read_frame(Review.objects.all(), verbose=False)
+    df_reviews.drop(['id', 'title', 'content', 'created_at',
+                     'updated_at'], axis=1, inplace=True)
+
+    df_supplements_reviews = df_supplements.merge(
+        df_reviews, left_on='id', right_on='supplement')
+    ranks_group = df_supplements_reviews.groupby(['id'])
+    # print(ranks_group.sum())
+    ranks = ranks_group.agg({
+        'rank': 'mean',
+        'supplement': 'count'
+    }).rename(columns={'supplement': 'count'})
+
+    # isEnoughReviews = ranks['count'] >= min_reviews
+    # ranks = ranks[isEnoughReviews]
+
+    ranks = ranks.sort_values(by=['rank'], ascending=False)
+
+    return ranks.head(10).reset_index()
 
 
 def supplement_by_functional(category_id, min_reviews=10):
