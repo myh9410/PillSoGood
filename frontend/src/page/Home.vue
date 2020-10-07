@@ -46,14 +46,22 @@
     </section>
     <br>
     <div class="products-login" v-if="this.$store.state.isLogged">
-      <vueper-slides fade :touchable="false" autoplay arrows-outside>
+      <vueper-slides fade :touchable="false" autoplay arrows-outside fractions progress>
         <vueper-slide v-for="(sampletonic, i) in sampletonics" :key="i" :title="sampletonic.name" :image="sampletonic.src" />
       </vueper-slides>
     </div>
     <div class="products-logout" v-else>
       로그인을 통해 <br>
       나를 위한 비타민들을 <br>
-      확인해보세요!
+      확인해보세요!<br><br><br>
+       <v-btn rounded x-large @click="toLogin">로그인</v-btn>
+    </div>
+    <div class="reviews" v-if="reviews.length != 0">
+      <h1>최신 리뷰들</h1>
+      <br>
+      <vueper-slides fade :touchable="false" autoplay arrows-outside fractions progress>
+        <vueper-slide v-for="review in reviews" :key="review.id" :title="review.user.username" :content="review.content" />
+      </vueper-slides>
     </div>
   </div>
 </template>
@@ -83,8 +91,12 @@ export default {
       http.get('recommends/', config)
       .then(res => {
         console.log(res);
-      })
+      });
     }
+    http.get('reviews/')
+    .then(res => {
+      this.reviews = res.data;
+    });
   },
   data: ()=> ({
     sampletonics: [
@@ -113,7 +125,13 @@ export default {
         name: "솔가 비타민 E",
         src: simage2,
       },
-    ]
-  })
+    ],
+    reviews : []
+  }),
+  methods : {
+    toLogin() {
+      this.$router.push("/user/login")
+    }
+  }
 }
 </script>
