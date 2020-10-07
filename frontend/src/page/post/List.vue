@@ -76,7 +76,6 @@ export default {
   }),
   created() {
     this.fetchTonicList(1);
-
   },
   methods: {
     goDetail(tonic) {
@@ -95,7 +94,7 @@ export default {
         .then((res) => {
           // console.log(res.data);
 
-          for (var i = 0; i < 10; i++) {
+          for (var i = 0; i < 8; i++) {
             this.tonics.push(res.data[i]);
           }
           // console.log(this.tonics);
